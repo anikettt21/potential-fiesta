@@ -1,8 +1,8 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans: 'Inter', system-ui, sans-serif;
+  --display: 'Syne', system-ui, sans-serif;
+  --sans: 'Plus Jakarta Sans', system-ui, sans-serif;
   --mono: 'JetBrains Mono', monospace;
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -108,11 +108,12 @@ nav {
   height: 64px;
 }
 .nav-logo {
-  font-family: var(--serif);
-  font-weight: 700;
-  font-size: 1.1rem;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 1.05rem;
   color: var(--text);
-  letter-spacing: 0.01em;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   transition: color var(--transition);
 }
 .nav-links {
@@ -276,12 +277,12 @@ nav {
   border-radius: 2px;
 }
 .hero-name {
-  font-family: var(--serif);
-  font-size: clamp(3rem, 6vw, 4.8rem);
-  font-weight: 700;
+  font-family: var(--display);
+  font-size: clamp(3.2rem, 6.5vw, 5.2rem);
+  font-weight: 800;
   color: var(--text);
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
   margin-bottom: 24px;
 }
 .hero-name span {
@@ -291,13 +292,14 @@ nav {
   background-clip: text;
 }
 .hero-tagline {
-  font-size: 1.1rem;
+  font-size: 1.08rem;
   color: var(--text-muted);
   font-weight: 400;
   margin-bottom: 16px;
-  max-width: 560px;
-  line-height: 1.8;
+  max-width: 580px;
+  line-height: 1.85;
   min-height: 2.5em;
+  font-family: var(--sans);
 }
 .typewriter-cursor {
   display: inline-block;
@@ -320,11 +322,12 @@ nav {
   display: flex; flex-direction: column; gap: 2px;
 }
 .stat-number {
-  font-family: var(--serif);
-  font-size: 2rem;
-  font-weight: 700;
+  font-family: var(--display);
+  font-size: 2.2rem;
+  font-weight: 800;
   color: var(--accent);
   line-height: 1;
+  letter-spacing: -0.02em;
 }
 .stat-label {
   font-size: 0.72rem;
@@ -386,11 +389,12 @@ section:last-of-type { border-bottom: none; }
   white-space: nowrap;
 }
 .section-title {
-  font-family: var(--serif);
-  font-size: 1.6rem;
-  font-weight: 700;
+  font-family: var(--display);
+  font-size: 1.55rem;
+  font-weight: 800;
   color: var(--text);
   white-space: nowrap;
+  letter-spacing: -0.01em;
 }
 .section-line {
   flex: 1; height: 1px;
@@ -421,9 +425,11 @@ section:last-of-type { border-bottom: none; }
 .summary-text {
   font-size: 1.05rem;
   color: var(--text-muted);
-  line-height: 1.9;
+  line-height: 2.0;
+  font-weight: 400;
+  letter-spacing: 0.01em;
 }
-.summary-text strong { color: var(--text); font-weight: 600; }
+.summary-text strong { color: var(--text); font-weight: 700; }
 
 /* ── PROJECTS ── */
 .projects-grid {
@@ -465,9 +471,10 @@ section:last-of-type { border-bottom: none; }
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
 }
 .project-name {
-  font-family: var(--serif);
-  font-size: 1.15rem; font-weight: 700;
+  font-family: var(--display);
+  font-size: 1.1rem; font-weight: 700;
   color: var(--text);
+  letter-spacing: -0.01em;
 }
 .badge {
   font-size: 0.66rem; font-weight: 700;
@@ -535,20 +542,23 @@ section:last-of-type { border-bottom: none; }
   font-size: 16px;
 }
 .skill-card-label {
-  font-size: 0.76rem; font-weight: 700;
-  letter-spacing: 0.08em; text-transform: uppercase;
+  font-size: 0.74rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--accent);
+  font-family: var(--display);
 }
 .skill-items {
   display: flex; flex-wrap: wrap; gap: 7px;
 }
 .skill-pill {
-  font-size: 0.82rem; color: var(--text-muted);
+  font-size: 0.81rem; color: var(--text-muted);
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 8px; padding: 5px 12px;
   transition: all 0.2s;
   font-weight: 500;
+  font-family: var(--sans);
+  letter-spacing: 0.01em;
 }
 .skill-pill:hover {
   color: var(--text); border-color: var(--border2);
@@ -600,9 +610,10 @@ section:last-of-type { border-bottom: none; }
 }
 .edu-card:hover { border-color: var(--border2); box-shadow: var(--shadow); }
 .edu-degree {
-  font-family: var(--serif);
-  font-size: 1.25rem; font-weight: 700;
+  font-family: var(--display);
+  font-size: 1.2rem; font-weight: 700;
   color: var(--text); margin-bottom: 8px;
+  letter-spacing: -0.01em;
 }
 .edu-school { font-size: 0.97rem; color: var(--text-muted); }
 .edu-year {
@@ -656,12 +667,123 @@ footer {
 
 /* ── PRINT ── */
 @media print {
-  #particles-canvas, .spotlight, .scroll-top, nav, .theme-btn, .print-btn, .hamburger { display: none !important; }
-  body { background: white; color: black; font-size: 12pt; }
-  .container { max-width: 100%; padding: 20px; }
-  .hero { padding: 20px 0; }
-  .project-card, .skill-card, .summary-card, .edu-card { border: 1px solid #ccc; box-shadow: none; break-inside: avoid; }
-  section { padding: 20px 0; border-bottom: 1px solid #ccc; }
+  /* Hide all interactive / decorative elements */
+  #particles-canvas,
+  .spotlight,
+  .scroll-top,
+  nav,
+  .mobile-menu,
+  .theme-btn,
+  .print-btn,
+  .hamburger,
+  .typewriter-cursor,
+  .hero-eyebrow::before,
+  .prof-bar-wrap { display: none !important; }
+
+  /* Reset page */
+  @page { margin: 18mm 16mm; }
+  html, body {
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 11pt !important;
+    line-height: 1.6 !important;
+  }
+
+  /* Force all text to be visible — override CSS variables */
+  *, *::before, *::after {
+    color: #111 !important;
+    background: transparent !important;
+    border-color: #ccc !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Fix gradient name — restore solid black text */
+  .hero-name span {
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: #111 !important;
+    color: #111 !important;
+  }
+
+  /* Layout */
+  .container { max-width: 100%; padding: 0 16px; }
+  .hero { padding: 16px 0 12px; border-bottom: 1.5px solid #222 !important; }
+
+  /* Make headings clearly dark */
+  .hero-name { font-size: 28pt !important; color: #000 !important; }
+  .section-title { font-size: 14pt !important; color: #000 !important; }
+  .project-name, .edu-degree { color: #000 !important; }
+  .hero-eyebrow, .section-label { color: #444 !important; }
+
+  /* Body text — readable grey */
+  .summary-text, .project-desc, .edu-school,
+  .hero-tagline, .footer-avail, .footer-copy,
+  .skill-pill, .prof-bar-label, .stat-label { color: #333 !important; }
+
+  /* Accent-colored items — make dark */
+  .stat-number, .edu-year, .nav-available,
+  .section-label, .skill-card-label,
+  .tech-tag, .badge, .badge-live,
+  .hero-eyebrow, .project-url { color: #333 !important; }
+
+  /* Cards — thin border, white bg, no radius shadow */
+  .project-card, .skill-card, .summary-card, .edu-card {
+    background: #fff !important;
+    border: 1px solid #bbb !important;
+    border-radius: 6px !important;
+    padding: 12px 16px !important;
+    break-inside: avoid;
+  }
+  /* Remove the decorative top gradient bar */
+  .summary-card::before, .edu-card::before,
+  .project-card::before { display: none !important; }
+
+  /* Sections */
+  section {
+    padding: 16px 0 !important;
+    border-bottom: 1px solid #ddd !important;
+  }
+  section:last-of-type { border-bottom: none !important; }
+
+  /* Section header line */
+  .section-line { background: #ccc !important; }
+  .section-header { margin-bottom: 16px !important; }
+
+  /* Hero stats */
+  .hero-stats { margin: 12px 0 16px !important; gap: 20px !important; }
+  .stat-sep { background: #ccc !important; }
+
+  /* Contacts */
+  .contact-item {
+    background: #f5f5f5 !important;
+    border: 1px solid #ccc !important;
+    color: #222 !important;
+    padding: 4px 10px !important;
+  }
+
+  /* Skill pills & tech tags */
+  .skill-pill, .tech-tag {
+    background: #f0f0f0 !important;
+    border: 1px solid #ccc !important;
+    color: #333 !important;
+  }
+
+  /* Grids — single column for print */
+  .projects-grid, .skills-grid { grid-template-columns: 1fr !important; gap: 10px !important; }
+
+  /* Show fade-up elements (override animation hidden state) */
+  .fade-up { opacity: 1 !important; transform: none !important; }
+
+  /* Page breaks */
+  #projects, #skills, #education { page-break-before: auto; }
+  .project-card, .skill-card, .edu-card { page-break-inside: avoid; }
+
+  /* Footer */
+  footer { padding: 12px 0 !important; border-top: 1px solid #ccc !important; }
 }
 
 /* ── RESPONSIVE ── */
