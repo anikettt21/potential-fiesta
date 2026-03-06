@@ -1,4 +1,4 @@
-# Interactive Professional Resume — Aniket Devidas Gade
+# Interactive Professional Resume — Aniket Gade
 
 A high-level, interactive, and premium resume website built with a focus on modern aesthetics, smooth performance, and professional presentation.
 
