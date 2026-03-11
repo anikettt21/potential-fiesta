@@ -1434,6 +1434,8 @@ body {
   .preview-float-bar,
   .mobile-tabs,
   .photo-overlay,
+  .toast,
+  .mobile-pdf-notice,
   #particles-canvas {
     display: none !important;
   }
@@ -1443,6 +1445,7 @@ body {
   body {
     overflow: visible !important;
     height: auto !important;
+    width: auto !important;
     background: #fff !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
@@ -1454,10 +1457,16 @@ body {
     height: auto !important;
     overflow: visible !important;
     grid-template-columns: none !important;
+    position: static !important;
   }
 
-  /* ── 5. MAKE PREVIEW COLUMN FILL THE WHOLE PAGE ── */
-  .preview-column {
+  /* ── 5. MAKE PREVIEW COLUMN FILL THE WHOLE PAGE ──
+     Critical: reset ALL positioning/transform that mobile CSS applies.
+     Without this, browsers print a blank page because the column
+     is off-screen (left:100%) or clipped (overflow:hidden). */
+  .preview-column,
+  .preview-column.tab-visible,
+  .preview-column.tab-hidden {
     display: block !important;
     position: static !important;
     width: 100% !important;
@@ -1465,6 +1474,20 @@ body {
     overflow: visible !important;
     border: none !important;
     background: #fff !important;
+    transform: none !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  /* Also reset form column transforms so it doesn't interfere */
+  .form-column,
+  .form-column.tab-hidden {
+    transform: none !important;
+    position: static !important;
   }
 
   .preview-scroll-inner {
@@ -1474,7 +1497,8 @@ body {
     padding: 0 !important;
   }
 
-  /* ── 6. THE RESUME PAPER — full page, no card chrome ── */
+  /* ── 6. THE RESUME PAPER — full page, no card chrome ──
+     Reset the mobile scaling transform so it prints at full size. */
   .resume-paper {
     display: block !important;
     width: 100% !important;
@@ -1489,6 +1513,9 @@ body {
     color: #111827 !important;
     background: #fff !important;
     font-size: 10pt;
+    /* Critical: reset mobile scaling transform */
+    transform: none !important;
+    transform-origin: initial !important;
   }
 
   /* ── 7. TYPOGRAPHY TWEAKS FOR PRINT ── */
@@ -1566,6 +1593,11 @@ body {
 
   /* ── 10. HIDE PLACEHOLDER TEXT ── */
   .rv-placeholder {
+    display: none !important;
+  }
+
+  /* ── 10b. HIDE PLACEHOLDER PROFILE PHOTO ── */
+  .rv-photo[data-placeholder="true"] {
     display: none !important;
   }
 

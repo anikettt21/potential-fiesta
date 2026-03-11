@@ -340,6 +340,7 @@ document.getElementById('pc-apply').addEventListener('click', () => {
   const rvPhoto = document.getElementById('rv-photo');
   rvPhoto.src = photoDataUrl;
   rvPhoto.style.display = 'block';
+  rvPhoto.removeAttribute('data-placeholder');
 
   closePhotoEditor();
   save();
@@ -879,6 +880,7 @@ function restore() {
       thumb.innerHTML = `<img src="${photoDataUrl}" alt="Profile" style="width:100%;height:100%;object-fit:cover;border-radius:50%" />`;
       const rvPhoto = document.getElementById('rv-photo');
       rvPhoto.src = photoDataUrl; rvPhoto.style.display = 'block';
+      rvPhoto.removeAttribute('data-placeholder');
     }
     // Simple inputs
     if (data.inputs) simpleInputIds.forEach(id => {
