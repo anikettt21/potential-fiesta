@@ -1279,6 +1279,12 @@ img {
     }
 }
 
+@media (max-width: 1050px) {
+    .mp-templates-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .mp-nav {
         display: none;
