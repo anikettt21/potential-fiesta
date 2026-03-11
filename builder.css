@@ -491,6 +491,13 @@ body {
   color: var(--text-muted);
 }
 
+.photo-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
 .photo-upload-link {
   font-size: 0.8rem;
   font-weight: 600;
@@ -498,10 +505,24 @@ body {
   cursor: pointer;
   text-decoration: none;
   display: inline-block;
-  margin-top: 4px;
 }
 
 .photo-upload-link:hover {
+  text-decoration: underline;
+}
+
+.photo-remove-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--danger);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--dfont);
+}
+
+.photo-remove-link:hover {
   text-decoration: underline;
 }
 

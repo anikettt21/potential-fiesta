@@ -342,7 +342,37 @@ document.getElementById('pc-apply').addEventListener('click', () => {
   rvPhoto.style.display = 'block';
   rvPhoto.removeAttribute('data-placeholder');
 
+  // Show remove button
+  document.getElementById('photo-remove-btn').style.display = 'inline';
+
   closePhotoEditor();
+  save();
+});
+
+/* ── REMOVE PHOTO ──────────────────────────────────────────────── */
+document.getElementById('photo-remove-btn').addEventListener('click', () => {
+  // Clear stored photo data
+  photoDataUrl = '';
+
+  // Reset thumbnail to default camera icon
+  document.getElementById('photo-thumb').innerHTML = `
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+      <circle cx="12" cy="13" r="4" />
+    </svg>`;
+
+  // Reset resume preview photo to placeholder
+  const rvPhoto = document.getElementById('rv-photo');
+  rvPhoto.src = 'demo-photo.png';
+  rvPhoto.setAttribute('data-placeholder', 'true');
+  rvPhoto.style.display = '';
+
+  // Hide remove button
+  document.getElementById('photo-remove-btn').style.display = 'none';
+
+  // Clear file input
+  document.getElementById('photo-input').value = '';
+
   save();
 });
 
@@ -881,6 +911,7 @@ function restore() {
       const rvPhoto = document.getElementById('rv-photo');
       rvPhoto.src = photoDataUrl; rvPhoto.style.display = 'block';
       rvPhoto.removeAttribute('data-placeholder');
+      document.getElementById('photo-remove-btn').style.display = 'inline';
     }
     // Simple inputs
     if (data.inputs) simpleInputIds.forEach(id => {
