@@ -1819,3 +1819,333 @@ body {
     gap: 3px;
   }
 }
+
+/* ================================================================
+   RESUME TEMPLATE THEMES
+   Applied via data-template attribute on .resume-paper
+   ================================================================ */
+
+/* ── Classic (default — blue) ── */
+/* No overrides needed, inherits base styles */
+
+/* ── Modern — Teal/Emerald ── */
+.resume-paper[data-template="modern"] .rv-title {
+  color: #0d9488;
+}
+
+.resume-paper[data-template="modern"] .rv-header-line {
+  background: #0d9488;
+}
+
+.resume-paper[data-template="modern"] .rv-section-title {
+  color: #0d9488;
+}
+
+.resume-paper[data-template="modern"] .rv-section-line {
+  background: #0d9488;
+}
+
+.resume-paper[data-template="modern"] .rv-contact-item:hover {
+  color: #0d9488;
+}
+
+.resume-paper[data-template="modern"] .rv-entry-url {
+  color: #0d9488;
+}
+
+.resume-paper[data-template="modern"] .rv-skills-pill {
+  color: #0d9488;
+  background: #f0fdfa;
+  border-color: #ccfbf1;
+}
+
+.resume-paper[data-template="modern"] .rv-entry-tag {
+  color: #0d9488;
+  background: #f0fdfa;
+  border-color: #ccfbf1;
+}
+
+/* ── Executive — Dark Navy Header, Gold Accents ── */
+.resume-paper[data-template="executive"] .rv-header {
+  background: #1e293b;
+  color: #fff;
+  margin: -52px -56px 0;
+  padding: 48px 56px 28px;
+}
+
+.resume-paper[data-template="executive"] .rv-name {
+  color: #fff;
+  font-family: 'Playfair Display', serif;
+}
+
+.resume-paper[data-template="executive"] .rv-title {
+  color: #d97706;
+}
+
+.resume-paper[data-template="executive"] .rv-header+.rv-contacts {
+  margin-top: 16px;
+}
+
+.resume-paper[data-template="executive"] .rv-header-line {
+  background: #d97706;
+  height: 1px;
+}
+
+.resume-paper[data-template="executive"] .rv-section-title {
+  color: #1e293b;
+  font-family: 'Playfair Display', serif;
+}
+
+.resume-paper[data-template="executive"] .rv-section-line {
+  background: #d97706;
+}
+
+.resume-paper[data-template="executive"] .rv-skills-pill {
+  color: #92400e;
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+.resume-paper[data-template="executive"] .rv-entry-tag {
+  color: #92400e;
+  background: #fffbeb;
+  border-color: #fde68a;
+}
+
+.resume-paper[data-template="executive"] .rv-entry-url {
+  color: #d97706;
+}
+
+/* ── Creative — Purple Gradient ── */
+.resume-paper[data-template="creative"] .rv-name {
+  background: linear-gradient(135deg, #7c3aed, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.resume-paper[data-template="creative"] .rv-title {
+  color: #7c3aed;
+}
+
+.resume-paper[data-template="creative"] .rv-header-line {
+  background: linear-gradient(90deg, #7c3aed, #ec4899);
+  height: 3px;
+}
+
+.resume-paper[data-template="creative"] .rv-section-title {
+  color: #7c3aed;
+}
+
+.resume-paper[data-template="creative"] .rv-section-line {
+  background: #7c3aed;
+}
+
+.resume-paper[data-template="creative"] .rv-contact-item:hover {
+  color: #7c3aed;
+}
+
+.resume-paper[data-template="creative"] .rv-entry-url {
+  color: #7c3aed;
+}
+
+.resume-paper[data-template="creative"] .rv-skills-pill {
+  color: #7c3aed;
+  background: #f5f3ff;
+  border-color: #ede9fe;
+}
+
+.resume-paper[data-template="creative"] .rv-entry-tag {
+  color: #ec4899;
+  background: #fdf2f8;
+  border-color: #fce7f3;
+}
+
+/* ── Developer — Green Monospace ── */
+.resume-paper[data-template="developer"] .rv-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.8rem;
+}
+
+.resume-paper[data-template="developer"] .rv-title {
+  color: #059669;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.resume-paper[data-template="developer"] .rv-header-line {
+  background: #059669;
+}
+
+.resume-paper[data-template="developer"] .rv-section-title {
+  color: #059669;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.resume-paper[data-template="developer"] .rv-section-line {
+  background: #059669;
+}
+
+.resume-paper[data-template="developer"] .rv-contact-item:hover {
+  color: #059669;
+}
+
+.resume-paper[data-template="developer"] .rv-entry-url {
+  color: #059669;
+}
+
+.resume-paper[data-template="developer"] .rv-skills-pill {
+  color: #059669;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+}
+
+.resume-paper[data-template="developer"] .rv-entry-tag {
+  color: #059669;
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Elegant — Burgundy Serif, Centered Header ── */
+.resume-paper[data-template="elegant"] .rv-header {
+  justify-content: center;
+}
+
+.resume-paper[data-template="elegant"] .rv-name-block {
+  text-align: center;
+}
+
+.resume-paper[data-template="elegant"] .rv-name {
+  font-family: 'Playfair Display', serif;
+  text-transform: capitalize;
+  letter-spacing: 0.04em;
+}
+
+.resume-paper[data-template="elegant"] .rv-title {
+  color: #881337;
+}
+
+.resume-paper[data-template="elegant"] .rv-contacts {
+  justify-content: center;
+}
+
+.resume-paper[data-template="elegant"] .rv-header-line {
+  background: #881337;
+}
+
+.resume-paper[data-template="elegant"] .rv-section-title {
+  color: #881337;
+  font-family: 'Playfair Display', serif;
+}
+
+.resume-paper[data-template="elegant"] .rv-section-line {
+  background: #881337;
+}
+
+.resume-paper[data-template="elegant"] .rv-contact-item:hover {
+  color: #881337;
+}
+
+.resume-paper[data-template="elegant"] .rv-entry-url {
+  color: #881337;
+}
+
+.resume-paper[data-template="elegant"] .rv-skills-pill {
+  color: #881337;
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+.resume-paper[data-template="elegant"] .rv-entry-tag {
+  color: #881337;
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+/* ── Minimalist — Pure B&W ── */
+.resume-paper[data-template="minimalist"] .rv-title {
+  color: #111827;
+  letter-spacing: 0.2em;
+  font-size: 0.75rem;
+}
+
+.resume-paper[data-template="minimalist"] .rv-header-line {
+  background: #111827;
+  height: 1px;
+}
+
+.resume-paper[data-template="minimalist"] .rv-section-title {
+  color: #111827;
+}
+
+.resume-paper[data-template="minimalist"] .rv-section-line {
+  background: #d1d5db;
+}
+
+.resume-paper[data-template="minimalist"] .rv-skills-pill {
+  color: #374151;
+  background: transparent;
+  border: 1px solid #d1d5db;
+}
+
+.resume-paper[data-template="minimalist"] .rv-entry-tag {
+  color: #374151;
+  background: transparent;
+  border: 1px solid #d1d5db;
+}
+
+/* ── Bold — Coral/Orange Gradient Header ── */
+.resume-paper[data-template="bold"] .rv-header {
+  background: linear-gradient(135deg, #dc2626, #f97316);
+  color: #fff;
+  margin: -52px -56px 0;
+  padding: 48px 56px 28px;
+}
+
+.resume-paper[data-template="bold"] .rv-name {
+  color: #fff;
+  font-size: 2.5rem;
+}
+
+.resume-paper[data-template="bold"] .rv-title {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.resume-paper[data-template="bold"] .rv-header+.rv-contacts {
+  margin-top: 16px;
+}
+
+.resume-paper[data-template="bold"] .rv-header-line {
+  background: #dc2626;
+  height: 3px;
+}
+
+.resume-paper[data-template="bold"] .rv-section-title {
+  color: #dc2626;
+}
+
+.resume-paper[data-template="bold"] .rv-section-line {
+  background: #dc2626;
+}
+
+.resume-paper[data-template="bold"] .rv-contact-item:hover {
+  color: #dc2626;
+}
+
+.resume-paper[data-template="bold"] .rv-entry-url {
+  color: #dc2626;
+}
+
+.resume-paper[data-template="bold"] .rv-skills-pill {
+  color: #dc2626;
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.resume-paper[data-template="bold"] .rv-entry-tag {
+  color: #dc2626;
+  background: #fef2f2;
+  border-color: #fecaca;
+}
