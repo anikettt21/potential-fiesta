@@ -370,6 +370,9 @@ document.getElementById('photo-remove-btn').addEventListener('click', () => {
   // Clear file input
   document.getElementById('photo-input').value = '';
 
+  // Update remove button text
+  document.getElementById('photo-remove-btn').textContent = 'Remove Profile Photo';
+
   save();
 });
 
