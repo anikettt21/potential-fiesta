@@ -1,12 +1,22 @@
 /* ================================================================
-   RESUME FORGE — script.js
+   RESUME FORGE — builder.js
    7-step wizard · live preview · auto-save · PDF export
+   Multi-template support via ?template= URL parameter
    ================================================================ */
+
+// ── TEMPLATE INIT ───────────────────────────────────────────────
+const VALID_TEMPLATES = ['classic', 'modern', 'executive', 'creative', 'developer', 'elegant', 'minimalist', 'bold'];
+const urlParams = new URLSearchParams(window.location.search);
+const selectedTemplate = urlParams.get('template') || localStorage.getItem('rf_template') || 'classic';
+if (VALID_TEMPLATES.includes(selectedTemplate)) {
+  document.getElementById('resume-preview').setAttribute('data-template', selectedTemplate);
+  localStorage.setItem('rf_template', selectedTemplate);
+}
 
 // ── THEME TOGGLE ────────────────────────────────────────────────
 const themeBtn = document.getElementById('theme-btn');
 const MOON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
-const SUN  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+const SUN = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
 
 let isDark = false; // default: light
 themeBtn.innerHTML = SUN; // sun = light mode is active
@@ -31,7 +41,7 @@ document.getElementById('clear-btn').addEventListener('click', () => {
 // ================================================================
 function val(id) { return (document.getElementById(id)?.value || '').trim(); }
 function esc(str) {
-  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 function ensureHttp(url) {
   const u = (url || '').trim();
@@ -46,14 +56,14 @@ function fmtDesc(text) {
   const lines = text.split('\n').filter(l => l.trim());
   // Only apply bullet rendering to lines that actually ARE bullets
   const bulletLines = lines.filter(l => /^[•\-\*]\s/.test(l.trim()));
-  const plainLines  = lines.filter(l => !/^[•\-\*]\s/.test(l.trim()));
+  const plainLines = lines.filter(l => !/^[•\-\*]\s/.test(l.trim()));
   let out = '';
   if (bulletLines.length) {
     const items = bulletLines.map(l => `<li>${esc(l.trim().replace(/^[•\-\*]\s*/, ''))}</li>`).join('');
     out += `<ul class="rv-bullets">${items}</ul>`;
   }
   if (plainLines.length) {
-    out += `<p class="rv-entry-desc">${esc(plainLines.join('\n')).replace(/\n/g,'<br>')}</p>`;
+    out += `<p class="rv-entry-desc">${esc(plainLines.join('\n')).replace(/\n/g, '<br>')}</p>`;
   }
   return out;
 }
@@ -62,13 +72,13 @@ function fmtDesc(text) {
 //  PHOTO EDITOR — Canvas-based circle crop tool
 // ================================================================
 let photoDataUrl = '';
-let editorImg    = null;
-let coverZoom    = 1;
+let editorImg = null;
+let coverZoom = 1;
 
 const PE_SIZE = 300;  // canvas px
-const PE_R    = 132;  // circle radius px
+const PE_R = 132;  // circle radius px
 
-let es = { zoom:1, rot:0, flipH:false, flipV:false, offX:0, offY:0, brightness:1 };
+let es = { zoom: 1, rot: 0, flipH: false, flipV: false, offX: 0, offY: 0, brightness: 1 };
 
 /* Open/close helpers */
 function openPhotoEditor() { document.getElementById('photo-modal').classList.add('open'); }
@@ -78,7 +88,7 @@ function closePhotoEditor() {
 }
 
 /* When a file is selected → load into editor */
-document.getElementById('photo-input').addEventListener('change', function() {
+document.getElementById('photo-input').addEventListener('change', function () {
   const file = this.files[0];
   if (!file) return;
   const reader = new FileReader();
@@ -92,11 +102,11 @@ document.getElementById('photo-input').addEventListener('change', function() {
       es = { zoom: coverZoom, rot: 0, flipH: false, flipV: false, offX: 0, offY: 0, brightness: 1 };
       // Sync sliders
       const zSlider = document.getElementById('pc-zoom');
-      zSlider.min   = (coverZoom * 0.5).toFixed(3);
-      zSlider.max   = (coverZoom * 4).toFixed(3);
-      zSlider.step  = (coverZoom * 0.02).toFixed(4);
+      zSlider.min = (coverZoom * 0.5).toFixed(3);
+      zSlider.max = (coverZoom * 4).toFixed(3);
+      zSlider.step = (coverZoom * 0.02).toFixed(4);
       zSlider.value = coverZoom;
-      document.getElementById('pc-rotate').value     = 0;
+      document.getElementById('pc-rotate').value = 0;
       document.getElementById('pc-rotate-val').textContent = '0°';
       document.getElementById('pc-brightness').value = 1;
       document.getElementById('pc-flip-h').classList.remove('active');
@@ -112,7 +122,7 @@ document.getElementById('photo-input').addEventListener('change', function() {
 /* ── CANVAS RENDERING ─────────────────────────────────────────── */
 function drawPhotoCanvas() {
   const canvas = document.getElementById('photo-canvas');
-  const ctx    = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d');
   const cx = PE_SIZE / 2, cy = PE_SIZE / 2;
 
   ctx.clearRect(0, 0, PE_SIZE, PE_SIZE);
@@ -188,7 +198,7 @@ const peCanvas = document.getElementById('photo-canvas');
 peCanvas.addEventListener('mousedown', e => {
   peIsDrag = true;
   peDragX0 = e.clientX; peDragY0 = e.clientY;
-  peOffX0  = es.offX;   peOffY0  = es.offY;
+  peOffX0 = es.offX; peOffY0 = es.offY;
 });
 window.addEventListener('mousemove', e => {
   if (!peIsDrag) return;
@@ -204,7 +214,7 @@ peCanvas.addEventListener('touchstart', e => {
   const t = e.touches[0];
   peIsDrag = true;
   peDragX0 = t.clientX; peDragY0 = t.clientY;
-  peOffX0  = es.offX;   peOffY0  = es.offY;
+  peOffX0 = es.offX; peOffY0 = es.offY;
 }, { passive: false });
 window.addEventListener('touchmove', e => {
   if (!peIsDrag) return;
@@ -219,7 +229,7 @@ window.addEventListener('touchend', () => { peIsDrag = false; });
 /* ── SCROLL TO ZOOM ─────────────────────────────────────────── */
 peCanvas.addEventListener('wheel', e => {
   e.preventDefault();
-  const step  = e.deltaY > 0 ? -0.04 : 0.04;
+  const step = e.deltaY > 0 ? -0.04 : 0.04;
   const delta = coverZoom * step;
   es.zoom = Math.max(+document.getElementById('pc-zoom').min, Math.min(+document.getElementById('pc-zoom').max, es.zoom + delta));
   document.getElementById('pc-zoom').value = es.zoom;
@@ -227,7 +237,7 @@ peCanvas.addEventListener('wheel', e => {
 }, { passive: false });
 
 /* ── ZOOM CONTROLS ──────────────────────────────────────────── */
-document.getElementById('pc-zoom').addEventListener('input', function() {
+document.getElementById('pc-zoom').addEventListener('input', function () {
   es.zoom = +this.value; drawPhotoCanvas();
 });
 document.getElementById('pc-zoom-in').addEventListener('click', () => {
@@ -242,7 +252,7 @@ document.getElementById('pc-zoom-out').addEventListener('click', () => {
 });
 
 /* ── ROTATE CONTROLS ────────────────────────────────────────── */
-document.getElementById('pc-rotate').addEventListener('input', function() {
+document.getElementById('pc-rotate').addEventListener('input', function () {
   es.rot = +this.value;
   document.getElementById('pc-rotate-val').textContent = es.rot + '°';
   drawPhotoCanvas();
@@ -261,25 +271,25 @@ document.getElementById('pc-rot-right').addEventListener('click', () => {
 });
 
 /* ── BRIGHTNESS ─────────────────────────────────────────────── */
-document.getElementById('pc-brightness').addEventListener('input', function() {
+document.getElementById('pc-brightness').addEventListener('input', function () {
   es.brightness = +this.value; drawPhotoCanvas();
 });
 
 /* ── FLIP ───────────────────────────────────────────────────── */
-document.getElementById('pc-flip-h').addEventListener('click', function() {
+document.getElementById('pc-flip-h').addEventListener('click', function () {
   es.flipH = !es.flipH; this.classList.toggle('active', es.flipH); drawPhotoCanvas();
 });
-document.getElementById('pc-flip-v').addEventListener('click', function() {
+document.getElementById('pc-flip-v').addEventListener('click', function () {
   es.flipV = !es.flipV; this.classList.toggle('active', es.flipV); drawPhotoCanvas();
 });
 
 /* ── RESET ──────────────────────────────────────────────────── */
 document.getElementById('pc-reset').addEventListener('click', () => {
   es = { zoom: coverZoom, rot: 0, flipH: false, flipV: false, offX: 0, offY: 0, brightness: 1 };
-  document.getElementById('pc-zoom').value        = coverZoom;
-  document.getElementById('pc-rotate').value      = 0;
+  document.getElementById('pc-zoom').value = coverZoom;
+  document.getElementById('pc-rotate').value = 0;
   document.getElementById('pc-rotate-val').textContent = '0°';
-  document.getElementById('pc-brightness').value  = 1;
+  document.getElementById('pc-brightness').value = 1;
   document.getElementById('pc-flip-h').classList.remove('active');
   document.getElementById('pc-flip-v').classList.remove('active');
   drawPhotoCanvas();
@@ -295,11 +305,11 @@ document.getElementById('photo-modal').addEventListener('click', e => {
 
 /* ── APPLY — export circle-cropped PNG ──────────────────────── */
 document.getElementById('pc-apply').addEventListener('click', () => {
-  const OUT   = 280;  // output image size in px
+  const OUT = 280;  // output image size in px
   const expCanvas = document.createElement('canvas');
   expCanvas.width = expCanvas.height = OUT;
-  const ectx  = expCanvas.getContext('2d');
-  const ecx   = OUT / 2;
+  const ectx = expCanvas.getContext('2d');
+  const ecx = OUT / 2;
   const scale = OUT / (PE_R * 2); // scale from editor coords to export px
 
   // Clip to full circle
@@ -342,12 +352,12 @@ document.getElementById('pc-apply').addEventListener('click', () => {
 // ================================================================
 const STEPS = [
   { label: 'Personal Info', desc: 'Start with your basic contact details to build your header.' },
-  { label: 'Summary',       desc: 'Write a short, impactful professional summary (3–4 sentences).' },
+  { label: 'Summary', desc: 'Write a short, impactful professional summary (3–4 sentences).' },
   { label: 'Work Experience', desc: 'List your work history, most recent first. Focus on achievements.' },
-  { label: 'Projects',      desc: 'Showcase your best personal, freelance, or open-source projects.' },
-  { label: 'Education',     desc: 'Add your educational background, most recent first.' },
-  { label: 'Skills',        desc: 'List your technical skills, tools, and soft skills.' },
-  { label: 'Extras',        desc: 'Optional: certifications, awards, and volunteer work.' },
+  { label: 'Projects', desc: 'Showcase your best personal, freelance, or open-source projects.' },
+  { label: 'Education', desc: 'Add your educational background, most recent first.' },
+  { label: 'Skills', desc: 'List your technical skills, tools, and soft skills.' },
+  { label: 'Extras', desc: 'Optional: certifications, awards, and volunteer work.' },
 ];
 let currentStep = 1;
 
@@ -374,7 +384,7 @@ function showToast(msg) {
 
 function _goToStep(n) {
   if (n < 1 || n > STEPS.length) return;
-  
+
   // Mobile UX: Show toast if moving forward and on a small screen
   if (n > currentStep && window.innerWidth <= 780) {
     showToast('Changes added to preview');
@@ -394,9 +404,9 @@ function goToStep(n) {
 
 function updateStepUI() {
   const s = STEPS[currentStep - 1];
-  document.getElementById('step-title').textContent   = `Step ${currentStep}: ${s.label}`;
-  document.getElementById('step-desc').textContent    = s.desc;
-  document.getElementById('step-num').textContent     = currentStep;
+  document.getElementById('step-title').textContent = `Step ${currentStep}: ${s.label}`;
+  document.getElementById('step-desc').textContent = s.desc;
+  document.getElementById('step-num').textContent = currentStep;
   // Update segments
   document.querySelectorAll('.step-segment').forEach((seg, i) => {
     seg.classList.remove('active', 'done');
@@ -408,7 +418,7 @@ function updateStepUI() {
 function updateNavButtons() {
   const back = document.getElementById('nav-back');
   const next = document.getElementById('nav-next');
-  const gen  = document.getElementById('nav-generate');
+  const gen = document.getElementById('nav-generate');
   back.style.visibility = currentStep === 1 ? 'hidden' : 'visible';
   if (currentStep === STEPS.length) {
     next.classList.add('hidden');
@@ -455,32 +465,32 @@ function renderExperienceList() {
       <div class="form-grid-2">
         <div class="field-group">
           <label class="field-label">Job Title</label>
-          <input class="field-input" type="text" data-field="jobTitle" data-i="${i}" value="${esc(exp.jobTitle||'')}" placeholder="e.g. Senior Engineer" />
+          <input class="field-input" type="text" data-field="jobTitle" data-i="${i}" value="${esc(exp.jobTitle || '')}" placeholder="e.g. Senior Engineer" />
         </div>
         <div class="field-group">
           <label class="field-label">Company</label>
-          <input class="field-input" type="text" data-field="company" data-i="${i}" value="${esc(exp.company||'')}" placeholder="e.g. Tech Corp" />
+          <input class="field-input" type="text" data-field="company" data-i="${i}" value="${esc(exp.company || '')}" placeholder="e.g. Tech Corp" />
         </div>
       </div>
       <div class="form-grid-2">
         <div class="field-group">
           <label class="field-label">Location</label>
-          <input class="field-input" type="text" data-field="expLocation" data-i="${i}" value="${esc(exp.expLocation||'')}" placeholder="San Francisco, CA / Remote" />
+          <input class="field-input" type="text" data-field="expLocation" data-i="${i}" value="${esc(exp.expLocation || '')}" placeholder="San Francisco, CA / Remote" />
         </div>
         <div class="field-group">
           <label class="field-label">Duration</label>
-          <input class="field-input" type="text" data-field="duration" data-i="${i}" value="${esc(exp.duration||'')}" placeholder="Jan 2022 — Present" />
+          <input class="field-input" type="text" data-field="duration" data-i="${i}" value="${esc(exp.duration || '')}" placeholder="Jan 2022 — Present" />
         </div>
       </div>
       <div class="field-group">
         <label class="field-label">Achievements &amp; Responsibilities</label>
         <p class="field-hint">Start each line with • or - for bullet points</p>
-        <textarea class="field-textarea" rows="4" data-field="expDesc" data-i="${i}" placeholder="• Architected and shipped X, reducing Y by Z%&#10;• Led a team of N to deliver project ahead of schedule">${esc(exp.expDesc||'')}</textarea>
+        <textarea class="field-textarea" rows="4" data-field="expDesc" data-i="${i}" placeholder="• Architected and shipped X, reducing Y by Z%&#10;• Led a team of N to deliver project ahead of schedule">${esc(exp.expDesc || '')}</textarea>
       </div>
     `;
     const removeBtn = card.querySelector('.entry-remove');
     // BUG FIX: read index from dataset at click-time, not from captured `i` (stale closure)
-    if (removeBtn) removeBtn.addEventListener('click', function() {
+    if (removeBtn) removeBtn.addEventListener('click', function () {
       const idx = +this.dataset.i;
       expData.splice(idx, 1); renderExperienceList(); renderPreview(); save();
     });
@@ -517,28 +527,28 @@ function renderProjectList() {
       <div class="form-grid-2">
         <div class="field-group">
           <label class="field-label">Project Name</label>
-          <input class="field-input" type="text" data-field="projName" data-i="${i}" value="${esc(proj.projName||'')}" placeholder="e.g. TaskFlow SaaS" />
+          <input class="field-input" type="text" data-field="projName" data-i="${i}" value="${esc(proj.projName || '')}" placeholder="e.g. TaskFlow SaaS" />
         </div>
         <div class="field-group">
           <label class="field-label">Status</label>
-          <input class="field-input" type="text" data-field="projStatus" data-i="${i}" value="${esc(proj.projStatus||'')}" placeholder="Live / In Dev / Open Source" />
+          <input class="field-input" type="text" data-field="projStatus" data-i="${i}" value="${esc(proj.projStatus || '')}" placeholder="Live / In Dev / Open Source" />
         </div>
       </div>
       <div class="field-group">
         <label class="field-label">Live / Demo URL</label>
-        <input class="field-input" type="url" data-field="projUrl" data-i="${i}" value="${esc(proj.projUrl||'')}" placeholder="https://yourproject.vercel.app" />
+        <input class="field-input" type="url" data-field="projUrl" data-i="${i}" value="${esc(proj.projUrl || '')}" placeholder="https://yourproject.vercel.app" />
       </div>
       <div class="field-group">
         <label class="field-label">Tech Stack (comma-separated)</label>
-        <input class="field-input" type="text" data-field="projTech" data-i="${i}" value="${esc(proj.projTech||'')}" placeholder="React, Node.js, MongoDB, Vercel" />
+        <input class="field-input" type="text" data-field="projTech" data-i="${i}" value="${esc(proj.projTech || '')}" placeholder="React, Node.js, MongoDB, Vercel" />
       </div>
       <div class="field-group">
         <label class="field-label">Description</label>
-        <textarea class="field-textarea" rows="3" data-field="projDesc" data-i="${i}" placeholder="What does it do? What problem does it solve?">${esc(proj.projDesc||'')}</textarea>
+        <textarea class="field-textarea" rows="3" data-field="projDesc" data-i="${i}" placeholder="What does it do? What problem does it solve?">${esc(proj.projDesc || '')}</textarea>
       </div>
     `;
     const removeBtn = card.querySelector('.entry-remove');
-    if (removeBtn) removeBtn.addEventListener('click', function() {
+    if (removeBtn) removeBtn.addEventListener('click', function () {
       const idx = +this.dataset.i;
       projData.splice(idx, 1); renderProjectList(); renderPreview(); save();
     });
@@ -574,30 +584,30 @@ function renderEducationList() {
       <div class="form-grid-2">
         <div class="field-group">
           <label class="field-label">Degree / Qualification</label>
-          <input class="field-input" type="text" data-field="degree" data-i="${i}" value="${esc(edu.degree||'')}" placeholder="e.g. B.Tech — Computer Science" />
+          <input class="field-input" type="text" data-field="degree" data-i="${i}" value="${esc(edu.degree || '')}" placeholder="e.g. B.Tech — Computer Science" />
         </div>
         <div class="field-group">
           <label class="field-label">Year / Duration</label>
-          <input class="field-input" type="text" data-field="eduYear" data-i="${i}" value="${esc(edu.eduYear||'')}" placeholder="2022 – 2026" />
+          <input class="field-input" type="text" data-field="eduYear" data-i="${i}" value="${esc(edu.eduYear || '')}" placeholder="2022 – 2026" />
         </div>
       </div>
       <div class="form-grid-2">
         <div class="field-group">
           <label class="field-label">Institution</label>
-          <input class="field-input" type="text" data-field="institution" data-i="${i}" value="${esc(edu.institution||'')}" placeholder="e.g. IIT Bombay" />
+          <input class="field-input" type="text" data-field="institution" data-i="${i}" value="${esc(edu.institution || '')}" placeholder="e.g. IIT Bombay" />
         </div>
         <div class="field-group">
           <label class="field-label">GPA / Score (optional)</label>
-          <input class="field-input" type="text" data-field="gpa" data-i="${i}" value="${esc(edu.gpa||'')}" placeholder="8.5 / 10" />
+          <input class="field-input" type="text" data-field="gpa" data-i="${i}" value="${esc(edu.gpa || '')}" placeholder="8.5 / 10" />
         </div>
       </div>
       <div class="field-group">
         <label class="field-label">Achievements / Coursework (optional)</label>
-        <textarea class="field-textarea" rows="2" data-field="eduDesc" data-i="${i}" placeholder="Dean's List, Relevant Coursework: Data Structures, Algorithms">${esc(edu.eduDesc||'')}</textarea>
+        <textarea class="field-textarea" rows="2" data-field="eduDesc" data-i="${i}" placeholder="Dean's List, Relevant Coursework: Data Structures, Algorithms">${esc(edu.eduDesc || '')}</textarea>
       </div>
     `;
     const removeBtn = card.querySelector('.entry-remove');
-    if (removeBtn) removeBtn.addEventListener('click', function() {
+    if (removeBtn) removeBtn.addEventListener('click', function () {
       const idx = +this.dataset.i;
       eduData.splice(idx, 1); renderEducationList(); renderPreview(); save();
     });
@@ -632,17 +642,17 @@ function renderCertList() {
       </div>
       <div class="form-grid-2" style="margin-bottom:10px">
         <div class="field-group" style="margin-bottom:0">
-          <input class="field-input" type="text" data-field="certName" data-i="${i}" value="${esc(cert.certName||'')}" placeholder="Certificate Name" />
+          <input class="field-input" type="text" data-field="certName" data-i="${i}" value="${esc(cert.certName || '')}" placeholder="Certificate Name" />
         </div>
         <div class="field-group" style="margin-bottom:0">
-          <input class="field-input" type="text" data-field="certIssuer" data-i="${i}" value="${esc(cert.certIssuer||'')}" placeholder="Issuer (e.g. Google, AWS)" />
+          <input class="field-input" type="text" data-field="certIssuer" data-i="${i}" value="${esc(cert.certIssuer || '')}" placeholder="Issuer (e.g. Google, AWS)" />
         </div>
       </div>
       <div class="field-group" style="margin-bottom:0">
-        <input class="field-input" type="text" data-field="certYear" data-i="${i}" value="${esc(cert.certYear||'')}" placeholder="Year (e.g. 2024)" />
+        <input class="field-input" type="text" data-field="certYear" data-i="${i}" value="${esc(cert.certYear || '')}" placeholder="Year (e.g. 2024)" />
       </div>
     `;
-    card.querySelector('.entry-remove').addEventListener('click', function() {
+    card.querySelector('.entry-remove').addEventListener('click', function () {
       const idx = +this.dataset.i;
       certData.splice(idx, 1); renderCertList(); renderPreview(); save();
     });
@@ -663,10 +673,10 @@ document.getElementById('add-certification').addEventListener('click', () => {
 //  SIMPLE INPUT LIVE BINDING
 // ================================================================
 const simpleInputIds = [
-  'f-name','f-title','f-email','f-phone','f-location',
-  'f-linkedin','f-github','f-website','f-summary',
-  'f-tech-skills','f-tools','f-soft-skills','f-languages',
-  'f-awards','f-volunteer'
+  'f-name', 'f-title', 'f-email', 'f-phone', 'f-location',
+  'f-linkedin', 'f-github', 'f-website', 'f-summary',
+  'f-tech-skills', 'f-tools', 'f-soft-skills', 'f-languages',
+  'f-awards', 'f-volunteer'
 ];
 simpleInputIds.forEach(id => {
   const el = document.getElementById(id);
@@ -674,7 +684,7 @@ simpleInputIds.forEach(id => {
 });
 
 // Summary char counter
-const summaryEl    = document.getElementById('f-summary');
+const summaryEl = document.getElementById('f-summary');
 const summaryCount = document.getElementById('summary-char');
 summaryEl.addEventListener('input', () => {
   summaryCount.textContent = `${summaryEl.value.length} / 600 characters`;
@@ -691,9 +701,9 @@ function wireTagPreview(inputId, previewId) {
   };
   el.addEventListener('input', update); update();
 }
-wireTagPreview('f-tech-skills','tech-tags-preview');
-wireTagPreview('f-tools',      'tools-tags-preview');
-wireTagPreview('f-soft-skills','soft-tags-preview');
+wireTagPreview('f-tech-skills', 'tech-tags-preview');
+wireTagPreview('f-tools', 'tools-tags-preview');
+wireTagPreview('f-soft-skills', 'soft-tags-preview');
 
 // ================================================================
 //  LIVE PREVIEW
@@ -701,30 +711,30 @@ wireTagPreview('f-soft-skills','soft-tags-preview');
 // (val / esc / ensureHttp / fmtUrl / fmtDesc are hoisted to top of file)
 
 // SVG icons (compact)
-const IC_MAIL  = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`;
+const IC_MAIL = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>`;
 const IC_PHONE = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.79 19.79 0 0 1 4.69 13.5a19.5 19.5 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.79h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 10.4a16 16 0 0 0 6 6l1.77-1.77a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`;
-const IC_LOC   = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
-const IC_LINK  = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
+const IC_LOC = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>`;
+const IC_LINK = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
 const IC_GLOBE = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`;
 
 function renderPreview() {
   // ── Name + Title ──
-  const name  = val('f-name')  || 'YOUR NAME';
+  const name = val('f-name') || 'YOUR NAME';
   const title = val('f-title') || 'Your Job Title';
-  document.getElementById('rv-name').textContent  = name.toUpperCase();
+  document.getElementById('rv-name').textContent = name.toUpperCase();
   document.getElementById('rv-title').textContent = title;
 
   // ── Contacts ──
   const email = val('f-email'), phone = val('f-phone');
-  const loc   = val('f-location'), li = val('f-linkedin');
-  const gh    = val('f-github'),   ws = val('f-website');
+  const loc = val('f-location'), li = val('f-linkedin');
+  const gh = val('f-github'), ws = val('f-website');
   const contacts = [];
-  if (email) contacts.push({ ic: IC_MAIL,  text: email, href: `mailto:${email}` });
+  if (email) contacts.push({ ic: IC_MAIL, text: email, href: `mailto:${email}` });
   if (phone) contacts.push({ ic: IC_PHONE, text: phone, href: `tel:${phone}` });
-  if (loc)   contacts.push({ ic: IC_LOC,   text: loc,   href: null });
-  if (li)    contacts.push({ ic: IC_LINK,  text: fmtUrl(li), href: ensureHttp(li) });
-  if (gh)    contacts.push({ ic: IC_LINK,  text: fmtUrl(gh), href: ensureHttp(gh) });
-  if (ws)    contacts.push({ ic: IC_GLOBE, text: fmtUrl(ws), href: ensureHttp(ws) });
+  if (loc) contacts.push({ ic: IC_LOC, text: loc, href: null });
+  if (li) contacts.push({ ic: IC_LINK, text: fmtUrl(li), href: ensureHttp(li) });
+  if (gh) contacts.push({ ic: IC_LINK, text: fmtUrl(gh), href: ensureHttp(gh) });
+  if (ws) contacts.push({ ic: IC_GLOBE, text: fmtUrl(ws), href: ensureHttp(ws) });
   document.getElementById('rv-contacts').innerHTML = contacts.map(c =>
     c.href
       ? `<a class="rv-contact-item" href="${esc(c.href)}" target="_blank" rel="noopener">${c.ic} ${esc(c.text)}</a>`
@@ -746,7 +756,7 @@ function renderPreview() {
   }
 
   // ── Work Experience ──
-  const expEl   = document.getElementById('rv-exp-list');
+  const expEl = document.getElementById('rv-exp-list');
   const expItems = expData.filter(e => e.jobTitle || e.company);
   if (expItems.length === 0) {
     expEl.innerHTML = '<p class="rv-placeholder">Work experience will appear here.</p>';
@@ -764,7 +774,7 @@ function renderPreview() {
   }
 
   // ── Projects ──
-  const projEl    = document.getElementById('rv-projects-list');
+  const projEl = document.getElementById('rv-projects-list');
   const projItems = projData.filter(p => p.projName);
   if (projItems.length === 0) {
     projEl.innerHTML = '<p class="rv-placeholder">Projects will appear here.</p>';
@@ -782,7 +792,7 @@ function renderPreview() {
   }
 
   // ── Education ──
-  const eduEl   = document.getElementById('rv-edu-list');
+  const eduEl = document.getElementById('rv-edu-list');
   const eduItems = eduData.filter(e => e.degree || e.institution);
   if (eduItems.length === 0) {
     eduEl.innerHTML = '<p class="rv-placeholder">Education will appear here.</p>';
@@ -802,34 +812,34 @@ function renderPreview() {
   // ── Skills ──
   const techSkills = val('f-tech-skills'), toolSkills = val('f-tools');
   const softSkills = val('f-soft-skills'), langs = val('f-languages');
-  const skillsEl   = document.getElementById('rv-skills-block');
+  const skillsEl = document.getElementById('rv-skills-block');
   const rows = [];
-  if (techSkills) rows.push({ cat: 'Technical',       tags: techSkills });
+  if (techSkills) rows.push({ cat: 'Technical', tags: techSkills });
   if (toolSkills) rows.push({ cat: 'Tools & Platforms', tags: toolSkills });
-  if (softSkills) rows.push({ cat: 'Soft Skills',     tags: softSkills });
-  if (langs)      rows.push({ cat: 'Languages',       tags: langs });
+  if (softSkills) rows.push({ cat: 'Soft Skills', tags: softSkills });
+  if (langs) rows.push({ cat: 'Languages', tags: langs });
   if (rows.length === 0) {
     skillsEl.innerHTML = '<p class="rv-placeholder">Skills will appear here.</p>';
   } else {
     skillsEl.innerHTML = rows.map(r => `
       <div class="rv-skills-row">
         <div class="rv-skills-cat">${esc(r.cat)}</div>
-        <div class="rv-skills-tags">${r.tags.split(',').map(t=>t.trim()).filter(Boolean).map(t=>`<span class="rv-skills-pill">${esc(t)}</span>`).join('')}</div>
+        <div class="rv-skills-tags">${r.tags.split(',').map(t => t.trim()).filter(Boolean).map(t => `<span class="rv-skills-pill">${esc(t)}</span>`).join('')}</div>
       </div>
     `).join('');
   }
 
   // ── Extras ──
   const extrasSection = document.getElementById('rv-extras-section');
-  const extrasBlock   = document.getElementById('rv-extras-block');
-  const awards   = val('f-awards');
+  const extrasBlock = document.getElementById('rv-extras-block');
+  const awards = val('f-awards');
   const volunteer = val('f-volunteer');
   const certItems = certData.filter(c => c.certName);
   let extrasHTML = '';
-  if (certItems.length)  extrasHTML += `<div class="rv-extras-item"><strong>Certifications:</strong> ${certItems.map(c => `${esc(c.certName)}${c.certIssuer ? ` (${esc(c.certIssuer)})` : ''}${c.certYear ? ` — ${esc(c.certYear)}` : ''}`).join(' · ')}</div>`;
-  if (awards)    extrasHTML += `<div class="rv-extras-item"><strong>Awards:</strong> ${esc(awards).replace(/\n/g,'<br>')}</div>`;
-  if (volunteer) extrasHTML += `<div class="rv-extras-item"><strong>Volunteer:</strong> ${esc(volunteer).replace(/\n/g,'<br>')}</div>`;
-  extrasBlock.innerHTML   = extrasHTML;
+  if (certItems.length) extrasHTML += `<div class="rv-extras-item"><strong>Certifications:</strong> ${certItems.map(c => `${esc(c.certName)}${c.certIssuer ? ` (${esc(c.certIssuer)})` : ''}${c.certYear ? ` — ${esc(c.certYear)}` : ''}`).join(' · ')}</div>`;
+  if (awards) extrasHTML += `<div class="rv-extras-item"><strong>Awards:</strong> ${esc(awards).replace(/\n/g, '<br>')}</div>`;
+  if (volunteer) extrasHTML += `<div class="rv-extras-item"><strong>Volunteer:</strong> ${esc(volunteer).replace(/\n/g, '<br>')}</div>`;
+  extrasBlock.innerHTML = extrasHTML;
   extrasSection.style.display = extrasHTML ? '' : 'none';
 }
 
@@ -839,7 +849,7 @@ function renderPreview() {
 function save() {
   const data = {
     theme: document.documentElement.getAttribute('data-theme'),
-    step:  currentStep,
+    step: currentStep,
     photo: photoDataUrl,
     inputs: {},
     exp: expData, proj: projData, edu: eduData, certs: certData,
@@ -848,7 +858,7 @@ function save() {
     const el = document.getElementById(id);
     if (el) data.inputs[id] = el.value;
   });
-  try { localStorage.setItem('rf_data', JSON.stringify(data)); } catch(e) {}
+  try { localStorage.setItem('rf_data', JSON.stringify(data)); } catch (e) { }
 }
 
 function restore() {
@@ -876,20 +886,20 @@ function restore() {
       if (el && data.inputs[id] !== undefined) el.value = data.inputs[id];
     });
     // Repeatable
-    if (data.exp   && data.exp.length)   { expData  = data.exp;   renderExperienceList(); }
-    if (data.proj  && data.proj.length)  { projData = data.proj;  renderProjectList(); }
-    if (data.edu   && data.edu.length)   { eduData  = data.edu;   renderEducationList(); }
+    if (data.exp && data.exp.length) { expData = data.exp; renderExperienceList(); }
+    if (data.proj && data.proj.length) { projData = data.proj; renderProjectList(); }
+    if (data.edu && data.edu.length) { eduData = data.edu; renderEducationList(); }
     if (data.certs && data.certs.length) { certData = data.certs; renderCertList(); }
     // Step (BUG FIX: use internal _goToStep that skips save() to avoid restore→save loop)
     if (data.step >= 1 && data.step <= STEPS.length) _goToStep(data.step);
     // Tag previews (BUG FIX: call wireTagPreview directly, not via input event dispatch which triggers save)
-    wireTagPreview('f-tech-skills','tech-tags-preview');
-    wireTagPreview('f-tools',      'tools-tags-preview');
-    wireTagPreview('f-soft-skills','soft-tags-preview');
+    wireTagPreview('f-tech-skills', 'tech-tags-preview');
+    wireTagPreview('f-tools', 'tools-tags-preview');
+    wireTagPreview('f-soft-skills', 'soft-tags-preview');
     // Char counter
     summaryCount.textContent = `${summaryEl.value.length} / 600 characters`;
     renderPreview();
-  } catch(e) { console.warn('Restore failed', e); }
+  } catch (e) { console.warn('Restore failed', e); }
 }
 
 restore();
@@ -904,10 +914,10 @@ function switchTab(tab) {
   const tabForm = document.getElementById('tab-form');
   const tabPrev = document.getElementById('tab-preview');
   if (tab === 'form') {
-    formCol.classList.remove('tab-hidden');  prevCol.classList.remove('tab-visible');
-    tabForm.classList.add('active');         tabPrev.classList.remove('active');
+    formCol.classList.remove('tab-hidden'); prevCol.classList.remove('tab-visible');
+    tabForm.classList.add('active'); tabPrev.classList.remove('active');
   } else {
-    formCol.classList.add('tab-hidden');     prevCol.classList.add('tab-visible');
-    tabPrev.classList.add('active');         tabForm.classList.remove('active');
+    formCol.classList.add('tab-hidden'); prevCol.classList.add('tab-visible');
+    tabPrev.classList.add('active'); tabForm.classList.remove('active');
   }
 }
