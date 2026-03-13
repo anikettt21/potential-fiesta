@@ -2,7 +2,7 @@
 
 A complete, free-to-use resume platform where users can browse premium templates, preview them in full detail, and build professional resumes — all in the browser with zero sign-up.
 
-🔗 **Live**: [View on GitHub Pages](https://anikettt21.github.io/potential-fiesta/)
+🔗 **Live**: [View on GitHub Pages](https://resume-forge-builder.vercel.app/)
 
 ---
 
