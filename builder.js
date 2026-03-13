@@ -5,7 +5,7 @@
    ================================================================ */
 
 // ── TEMPLATE INIT ───────────────────────────────────────────────
-const VALID_TEMPLATES = ['classic', 'modern', 'executive', 'creative', 'developer', 'elegant', 'minimalist', 'bold'];
+const VALID_TEMPLATES = ['classic', 'modern', 'executive', 'creative', 'developer', 'elegant', 'minimalist', 'bold', 'azure', 'sunset', 'nordic', 'emerald', 'midnight', 'coral', 'slate', 'lavender', 'ruby', 'ocean', 'monochrome', 'amber', 'ivy', 'pastel', 'graphite', 'sakura', 'bronze', 'neon', 'swiss', 'royal', 'sage', 'metro', 'ivory', 'pixel', 'charcoal', 'citrus', 'blueprint', 'rose', 'timber', 'aurora', 'concrete', 'vineyard', 'prism', 'snowfall', 'mahogany', 'electric', 'bamboo', 'steel', 'peach', 'horizon', 'garnet', 'mosaic', 'glacier', 'terracotta', 'papercut', 'granite', 'mint', 'crimson', 'sand', 'carbon', 'lilac', 'dusk'];
 const urlParams = new URLSearchParams(window.location.search);
 const selectedTemplate = urlParams.get('template') || localStorage.getItem('rf_template') || 'classic';
 if (VALID_TEMPLATES.includes(selectedTemplate)) {
