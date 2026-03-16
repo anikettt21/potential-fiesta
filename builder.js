@@ -39,7 +39,16 @@ document.getElementById('clear-btn').addEventListener('click', () => {
 // ================================================================
 //  UTILITY HELPERS  (hoisted — used by render functions below)
 // ================================================================
-function val(id) { return (document.getElementById(id)?.value || '').trim(); }
+const skillLists = {
+  'f-tech-skills': [],
+  'f-tools': [],
+  'f-soft-skills': [],
+  'f-languages': []
+};
+function val(id) {
+  if (skillLists[id]) return skillLists[id].join(', ');
+  return (document.getElementById(id)?.value || '').trim();
+}
 function esc(str) {
   return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
@@ -721,20 +730,61 @@ summaryEl.addEventListener('input', () => {
   summaryCount.textContent = `${summaryEl.value.length} / 600 characters`;
 });
 
-// Tag previews
-function wireTagPreview(inputId, previewId) {
-  const el = document.getElementById(inputId);
-  const pr = document.getElementById(previewId);
-  if (!el || !pr) return;
-  const update = () => {
-    const tags = el.value.split(',').map(t => t.trim()).filter(Boolean);
-    pr.innerHTML = tags.map(t => `<span class="tag-pill">${esc(t)}</span>`).join('');
+// Interactive Skills Tagging
+function wireSkillTags(inputId, previewId) {
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
+  const btn = document.querySelector(`button[data-input="${inputId}"]`);
+  if (!input || !preview || !btn) return;
+
+  const updatePreview = () => {
+    preview.innerHTML = (skillLists[inputId] || []).map((t, idx) => `
+      <span class="tag-pill">
+        ${esc(t)}
+        <button type="button" class="tag-remove" data-i="${idx}" title="Remove">&times;</button>
+      </span>
+    `).join('');
+
+    preview.querySelectorAll('.tag-remove').forEach(remBtn => {
+      remBtn.addEventListener('click', () => {
+        skillLists[inputId].splice(+remBtn.dataset.i, 1);
+        updatePreview();
+        renderPreview();
+        save();
+      });
+    });
   };
-  el.addEventListener('input', update); update();
+
+  const addSkill = () => {
+    const v = input.value.trim().replace(/,/g, '');
+    if (v && !skillLists[inputId].includes(v)) {
+      skillLists[inputId].push(v);
+      input.value = '';
+      updatePreview();
+      renderPreview();
+      save();
+    } else {
+      input.value = '';
+    }
+  };
+
+  btn.addEventListener('click', addSkill);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      addSkill();
+    }
+  });
+
+  return { updatePreview };
 }
-wireTagPreview('f-tech-skills', 'tech-tags-preview');
-wireTagPreview('f-tools', 'tools-tags-preview');
-wireTagPreview('f-soft-skills', 'soft-tags-preview');
+
+const skillWires = {
+  'f-tech-skills': wireSkillTags('f-tech-skills', 'tech-tags-preview'),
+  'f-tools': wireSkillTags('f-tools', 'tools-tags-preview'),
+  'f-soft-skills': wireSkillTags('f-soft-skills', 'soft-tags-preview'),
+  'f-languages': wireSkillTags('f-languages', 'languages-tags-preview')
+};
 
 // ================================================================
 //  LIVE PREVIEW
@@ -886,8 +936,7 @@ function save() {
     exp: expData, proj: projData, edu: eduData, certs: certData,
   };
   simpleInputIds.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) data.inputs[id] = el.value;
+    data.inputs[id] = val(id);
   });
   try { localStorage.setItem('rf_data', JSON.stringify(data)); } catch (e) { }
 }
@@ -915,8 +964,13 @@ function restore() {
     }
     // Simple inputs
     if (data.inputs) simpleInputIds.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && data.inputs[id] !== undefined) el.value = data.inputs[id];
+      if (data.inputs[id] === undefined) return;
+      if (skillLists[id]) {
+        skillLists[id] = data.inputs[id].split(',').map(t => t.trim()).filter(Boolean);
+      } else {
+        const el = document.getElementById(id);
+        if (el) el.value = data.inputs[id];
+      }
     });
     // Repeatable
     if (data.exp && data.exp.length) { expData = data.exp; renderExperienceList(); }
@@ -925,10 +979,8 @@ function restore() {
     if (data.certs && data.certs.length) { certData = data.certs; renderCertList(); }
     // Step (BUG FIX: use internal _goToStep that skips save() to avoid restore→save loop)
     if (data.step >= 1 && data.step <= STEPS.length) _goToStep(data.step);
-    // Tag previews (BUG FIX: call wireTagPreview directly, not via input event dispatch which triggers save)
-    wireTagPreview('f-tech-skills', 'tech-tags-preview');
-    wireTagPreview('f-tools', 'tools-tags-preview');
-    wireTagPreview('f-soft-skills', 'soft-tags-preview');
+    // Tag previews sync
+    Object.values(skillWires).forEach(w => w.updatePreview());
     // Char counter
     summaryCount.textContent = `${summaryEl.value.length} / 600 characters`;
     renderPreview();

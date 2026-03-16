@@ -434,18 +434,88 @@ body {
 .tag-preview {
   display: flex;
   flex-wrap: wrap;
-  gap: 5px;
-  margin-top: 8px;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.input-with-button {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.input-with-button .field-input {
+  flex: 1;
+  width: auto;
+  /* Allow flex to control width */
+}
+
+.add-skill-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+}
+
+.add-skill-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+}
+
+.add-skill-btn:active {
+  transform: translateY(0);
 }
 
 .tag-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 0.73rem;
   color: var(--tag-color);
   background: var(--tag-bg);
   border: 1px solid var(--tag-border);
-  border-radius: 5px;
-  padding: 2px 9px;
+  border-radius: 6px;
+  padding: 3px 6px 3px 10px;
   font-weight: 500;
+  transition: all 0.2s;
+}
+
+.tag-pill:hover {
+  border-color: var(--primary-mid);
+}
+
+.tag-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: none;
+  border: none;
+  color: var(--primary);
+  opacity: 0.6;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  transition: all 0.2s;
+}
+
+.tag-remove:hover {
+  opacity: 1;
+  background: var(--primary);
+  color: #fff;
 }
 
 /* Profile photo upload */

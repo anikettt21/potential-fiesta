@@ -264,28 +264,63 @@
 
           <!-- ─── STEP 6: SKILLS ─── -->
           <div class="form-step" data-step="6">
-            <p class="field-hint" style="margin-bottom:20px">Enter skills separated by commas — they'll appear as neat
-              tags on your resume.</p>
+            <p class="field-hint" style="margin-bottom:20px">Enter a skill and click the + icon to add it. Use short,
+              clear terms.</p>
             <div class="field-group">
               <label class="field-label" for="f-tech-skills">Technical Skills</label>
-              <input class="field-input" type="text" id="f-tech-skills"
-                placeholder="JavaScript, React, Node.js, Python, SQL" />
+              <div class="input-with-button">
+                <input class="field-input" type="text" id="f-tech-skills" placeholder="e.g. JavaScript" />
+                <button type="button" class="add-skill-btn" data-input="f-tech-skills" data-preview="tech-tags-preview"
+                  title="Add skill">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                </button>
+              </div>
               <div class="tag-preview" id="tech-tags-preview"></div>
             </div>
             <div class="field-group">
               <label class="field-label" for="f-tools">Tools &amp; Platforms</label>
-              <input class="field-input" type="text" id="f-tools" placeholder="Git, Docker, AWS, Figma, Vercel" />
+              <div class="input-with-button">
+                <input class="field-input" type="text" id="f-tools" placeholder="e.g. Docker" />
+                <button type="button" class="add-skill-btn" data-input="f-tools" data-preview="tools-tags-preview"
+                  title="Add skill">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                </button>
+              </div>
               <div class="tag-preview" id="tools-tags-preview"></div>
             </div>
             <div class="field-group">
               <label class="field-label" for="f-soft-skills">Soft Skills</label>
-              <input class="field-input" type="text" id="f-soft-skills"
-                placeholder="Leadership, Problem-Solving, Communication" />
+              <div class="input-with-button">
+                <input class="field-input" type="text" id="f-soft-skills" placeholder="e.g. Leadership" />
+                <button type="button" class="add-skill-btn" data-input="f-soft-skills" data-preview="soft-tags-preview"
+                  title="Add skill">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                </button>
+              </div>
               <div class="tag-preview" id="soft-tags-preview"></div>
             </div>
             <div class="field-group">
               <label class="field-label" for="f-languages">Languages (spoken)</label>
-              <input class="field-input" type="text" id="f-languages" placeholder="English (Fluent), Hindi (Native)" />
+              <div class="input-with-button">
+                <input class="field-input" type="text" id="f-languages" placeholder="e.g. English (Fluent)" />
+                <button type="button" class="add-skill-btn" data-input="f-languages"
+                  data-preview="languages-tags-preview" title="Add language">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                    <line x1="12" y1="5" x2="12" y2="19" />
+                    <line x1="5" y1="12" x2="19" y2="12" />
+                  </svg>
+                </button>
+              </div>
+              <div class="tag-preview" id="languages-tags-preview"></div>
             </div>
           </div>
 
