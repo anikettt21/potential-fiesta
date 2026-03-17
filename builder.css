@@ -1603,7 +1603,6 @@ body {
     box-shadow: none !important;
     border-radius: 0 !important;
     min-height: auto !important;
-    page-break-inside: avoid;
     font-size: 10pt;
     /* Critical: reset mobile scaling transform */
     transform: none !important;
@@ -1649,7 +1648,8 @@ body {
 
   /* ── 9. AVOID WIDOW/ORPHAN BREAKS ── */
   .rv-section {
-    page-break-inside: avoid;
+    page-break-inside: auto;
+    break-inside: auto;
   }
 
   .rv-entry {
