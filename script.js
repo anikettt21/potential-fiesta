@@ -4,13 +4,22 @@
 const TEMPLATES = [
   // ── FEATURED TOP 8 (shown on homepage) ──
   {
+    id: 'minimalist',
+    name: 'Clean Slate',
+    description: 'Pure black and white with maximum whitespace. Let your content speak — zero distractions.',
+    category: ['minimal', 'professional'],
+    tags: ['B&W', 'Whitespace', 'ATS-Safe'],
+    badge: 'popular',
+    featured: true,
+  },
+  {
     id: 'classic',
     name: 'Classic Professional',
     description: 'Clean, ATS-friendly design with blue accents. The timeless choice for corporate and traditional roles.',
     category: ['professional'],
     tags: ['ATS-Friendly', 'Corporate', 'Clean'],
-    badge: 'popular',
-    featured: true,
+    badge: null,
+    featured: false,
   },
   {
     id: 'modern',
@@ -56,15 +65,6 @@ const TEMPLATES = [
     tags: ['Serif', 'Refined', 'Academic'],
     badge: null,
     featured: true,
-  },
-  {
-    id: 'minimalist',
-    name: 'Clean Slate',
-    description: 'Pure black and white with maximum whitespace. Let your content speak — zero distractions.',
-    category: ['minimal', 'professional'],
-    tags: ['B&W', 'Whitespace', 'ATS-Safe'],
-    badge: null,
-    featured: false,
   },
   {
     id: 'bold',

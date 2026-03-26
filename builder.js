@@ -19,12 +19,12 @@ const MOON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 const SUN = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
 
 let isDark = false; // default: light
-themeBtn.innerHTML = SUN; // sun = light mode is active
+themeBtn.innerHTML = MOON; // moon = switch to dark mode
 
 themeBtn.addEventListener('click', () => {
   isDark = !isDark;
   document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-  themeBtn.innerHTML = isDark ? MOON : SUN;
+  themeBtn.innerHTML = isDark ? SUN : MOON; // if dark, show sun to switch back
   save();
 });
 
@@ -929,7 +929,6 @@ function renderPreview() {
 // ================================================================
 function save() {
   const data = {
-    theme: document.documentElement.getAttribute('data-theme'),
     step: currentStep,
     photo: photoDataUrl,
     inputs: {},
@@ -946,12 +945,6 @@ function restore() {
   if (!raw) return;
   try {
     const data = JSON.parse(raw);
-    // Theme
-    if (data.theme) {
-      isDark = data.theme === 'dark';
-      document.documentElement.setAttribute('data-theme', data.theme);
-      themeBtn.innerHTML = isDark ? MOON : SUN;
-    }
     // Photo
     if (data.photo) {
       photoDataUrl = data.photo;
