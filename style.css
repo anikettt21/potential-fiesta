@@ -35,6 +35,7 @@
 
 html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
 }
 
 body {
@@ -46,6 +47,7 @@ body {
     font-size: 15px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
 }
 
 .hidden {
@@ -1652,7 +1654,14 @@ img {
     }
 
     .hero-stats {
-        gap: 18px;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .hero-stat {
+        min-width: 0;
+        flex: 1 1 calc(33% - 12px);
+        padding: 10px 8px;
     }
 
     .hero-stat-num {
