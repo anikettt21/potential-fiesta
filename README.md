@@ -1,4 +1,4 @@
-# ResumeForge — Free Resume Template Marketplace & Builder
+# FolioTub — Free Resume Template Marketplace & Builder
 
 A complete, free-to-use resume platform where users can browse premium templates, preview them in full detail, and build professional resumes — all in the browser with zero sign-up.
 
