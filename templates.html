@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Playfair+Display:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800;900&display=swap"
     rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
@@ -37,13 +37,21 @@
         <a href="#how-it-works" class="mp-nav-link">How It Works</a>
         <a href="blog.html" class="mp-nav-link">Blog</a>
       </nav>
-      <a href="builder.html" class="mp-header-cta">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="12" y1="5" x2="12" y2="19" />
-          <line x1="5" y1="12" x2="19" y2="12" />
-        </svg>
-        Build Resume
-      </a>
+      <div class="mp-nav-actions">
+        <div class="mp-nav-search-wrap">
+          <svg class="nav-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" class="nav-search-input" id="nav-search-input-tpl" placeholder="Search templates..." autocomplete="off" />
+        </div>
+        <a href="builder.html" class="mp-header-cta">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          Build Resume
+        </a>
+      </div>
     </div>
   </header>
 
@@ -111,25 +119,50 @@
   <!-- FOOTER -->
   <footer class="mp-footer">
     <div class="mp-footer-inner">
-      <div class="mp-footer-brand">
-        <div class="mp-brand-icon small">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <polyline points="14 2 14 8 20 8" />
-          </svg>
+      <div class="mp-footer-grid">
+        <div class="mp-footer-brand-wrap">
+          <div class="mp-footer-logo">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+              <polyline points="14 2 14 8 20 8" />
+            </svg>
+            ResumeForge
+          </div>
+          <p class="mp-footer-tagline">The premium destination for professionals to build career-defining resumes with precision and style.</p>
         </div>
-        <span>ResumeForge</span>
+        <div class="mp-footer-col">
+          <h4 class="mp-footer-col-title">Platform</h4>
+          <div class="mp-footer-links-list">
+            <a href="#templates" class="mp-footer-link">Templates</a>
+            <a href="builder.html" class="mp-footer-link">Resume Builder</a>
+            <a href="templates.html" class="mp-footer-link">Library</a>
+            <a href="blog.html" class="mp-footer-link">Resources</a>
+          </div>
+        </div>
+        <div class="mp-footer-col">
+          <h4 class="mp-footer-col-title">Company</h4>
+          <div class="mp-footer-links-list">
+            <a href="about.html" class="mp-footer-link">About Us</a>
+            <a href="contact.html" class="mp-footer-link">Contact</a>
+            <a href="blog.html" class="mp-footer-link">Careers</a>
+          </div>
+        </div>
+        <div class="mp-footer-col">
+          <h4 class="mp-footer-col-title">Legal</h4>
+          <div class="mp-footer-links-list">
+            <a href="privacy.html" class="mp-footer-link">Privacy Policy</a>
+            <a href="terms.html" class="mp-footer-link">Terms &amp; Conditions</a>
+          </div>
+        </div>
       </div>
-      <div class="mp-footer-links" style="margin-top: 10px; display: flex; gap: 15px; flex-wrap: wrap;">
-        <a href="about.html" style="color: #6b7280; font-size: 0.875rem; text-decoration: none;">About</a>
-        <a href="privacy.html" style="color: #6b7280; font-size: 0.875rem; text-decoration: none;">Privacy Policy</a>
-        <a href="terms.html" style="color: #6b7280; font-size: 0.875rem; text-decoration: none;">Terms &amp;
-          Conditions</a>
-        <a href="contact.html" style="color: #6b7280; font-size: 0.875rem; text-decoration: none;">Contact</a>
+      <div class="mp-footer-bottom">
+        <p class="mp-footer-copy">&copy; 2026 ResumeForge. Crafting futures one resume at a time.</p>
+        <div class="mp-footer-secondary-links">
+          <a href="#" class="mp-footer-secondary-link">LinkedIn</a>
+          <a href="#" class="mp-footer-secondary-link">Twitter</a>
+          <a href="#" class="mp-footer-secondary-link">Dribbble</a>
+        </div>
       </div>
-      <p class="mp-footer-copy" style="margin-top: 10px;">&copy; 2026 ResumeForge. Build your career with confidence.
-        All templates are free to
-        use.</p>
     </div>
   </footer>
 

@@ -64,7 +64,7 @@ const TEMPLATES = [
     category: ['minimal', 'professional'],
     tags: ['B&W', 'Whitespace', 'ATS-Safe'],
     badge: null,
-    featured: true,
+    featured: false,
   },
   {
     id: 'bold',
@@ -73,7 +73,7 @@ const TEMPLATES = [
     category: ['creative', 'modern'],
     tags: ['Vibrant', 'Confident', 'Standout'],
     badge: null,
-    featured: true,
+    featured: false,
   },
   // ── ADDITIONAL 50 TEMPLATES ──
   {
@@ -863,13 +863,28 @@ document.querySelectorAll('.mp-filter-btn').forEach(btn => {
 });
 
 const searchInput = document.getElementById('search-input');
+const navSearch = document.getElementById('nav-search-input') || document.getElementById('nav-search-input-tpl');
 let searchDebounce;
-searchInput.addEventListener('input', () => {
-  clearTimeout(searchDebounce);
-  searchDebounce = setTimeout(() => {
-    renderCards(currentFilter, searchInput.value);
-  }, 200);
-});
+
+const handleSearch = (val) => {
+  renderCards(currentFilter, val);
+  if (searchInput && searchInput.value !== val) searchInput.value = val;
+  if (navSearch && navSearch.value !== val) navSearch.value = val;
+};
+
+if (searchInput) {
+  searchInput.addEventListener('input', () => {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(() => handleSearch(searchInput.value), 200);
+  });
+}
+
+if (navSearch) {
+  navSearch.addEventListener('input', () => {
+    clearTimeout(searchDebounce);
+    searchDebounce = setTimeout(() => handleSearch(navSearch.value), 200);
+  });
+}
 
 function clearSearch() {
   searchInput.value = '';
@@ -950,12 +965,13 @@ window.addEventListener('resize', () => {
   resizeTimer = setTimeout(scalePreviews, 100);
 });
 
-// Smooth header background on scroll
+// Smooth header class on scroll
 window.addEventListener('scroll', () => {
   const header = document.getElementById('mp-header');
-  if (window.scrollY > 40) {
-    header.style.background = 'rgba(255,255,255,0.95)';
+  if (!header) return;
+  if (window.scrollY > 30) {
+    header.classList.add('scrolled');
   } else {
-    header.style.background = 'rgba(255,255,255,0.88)';
+    header.classList.remove('scrolled');
   }
 });
