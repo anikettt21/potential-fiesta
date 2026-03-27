@@ -1,12 +1,12 @@
 {
   "dependencies": {
-    "@vercel/analytics": "^2.0.1"
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0"
   },
   "name": "resumeforge",
   "version": "1.0.0",
   "description": "A complete, free-to-use resume platform where users can browse premium templates, preview them in full detail, and build professional resumes — all in the browser with zero sign-up.",
   "main": "builder.js",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
