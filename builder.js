@@ -6,12 +6,55 @@
 
 // ── TEMPLATE INIT ───────────────────────────────────────────────
 const VALID_TEMPLATES = ['classic', 'modern', 'executive', 'creative', 'developer', 'elegant', 'minimalist', 'bold', 'azure', 'sunset', 'nordic', 'emerald', 'midnight', 'coral', 'slate', 'lavender', 'ruby', 'ocean', 'monochrome', 'amber', 'ivy', 'pastel', 'graphite', 'sakura', 'bronze', 'neon', 'swiss', 'royal', 'sage', 'metro', 'ivory', 'pixel', 'charcoal', 'citrus', 'blueprint', 'rose', 'timber', 'aurora', 'concrete', 'vineyard', 'prism', 'snowfall', 'mahogany', 'electric', 'bamboo', 'steel', 'peach', 'horizon', 'garnet', 'mosaic', 'glacier', 'terracotta', 'papercut', 'granite', 'mint', 'crimson', 'sand', 'carbon', 'lilac', 'dusk'];
+const PREMIUM_TEMPLATES = ['minimalist', 'modern', 'executive', 'creative', 'developer', 'elegant', 'midnight', 'aurora'];
+
 const urlParams = new URLSearchParams(window.location.search);
 const selectedTemplate = urlParams.get('template') || localStorage.getItem('rf_template') || 'classic';
-if (VALID_TEMPLATES.includes(selectedTemplate)) {
-  document.getElementById('resume-preview').setAttribute('data-template', selectedTemplate);
-  localStorage.setItem('rf_template', selectedTemplate);
-}
+
+// Asynchronous Premium Gateway
+(async function securePremiumGateway() {
+  if (VALID_TEMPLATES.includes(selectedTemplate)) {
+    const isPremium = PREMIUM_TEMPLATES.includes(selectedTemplate);
+    if (!isPremium) {
+      document.getElementById('resume-preview').setAttribute('data-template', selectedTemplate);
+      localStorage.setItem('rf_template', selectedTemplate);
+      return; // Permitted free template
+    }
+
+    // Attempting to access Premium Template
+    // Instantly hide the page until network verifies the truth
+    document.body.style.display = 'none';
+
+    try {
+      const token = localStorage.getItem('token');
+      if (!token) throw new Error('Unauthenticated');
+
+      const res = await fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      if (!res.ok) throw new Error('Invalid Token');
+
+      const user = await res.json();
+      if (!user || user.hasPaid !== true) {
+        throw new Error('Unpaid Account');
+      }
+
+      // Payload Verified by Remote Backend!
+      localStorage.setItem('user', JSON.stringify(user));
+      document.getElementById('resume-preview').setAttribute('data-template', selectedTemplate);
+      localStorage.setItem('rf_template', selectedTemplate);
+      
+      // Reveal UI
+      document.body.style.display = '';
+    } catch (err) {
+      document.body.innerHTML = '<div style="padding:50px; text-align:center; font-family:sans-serif; background:#fff; color:#000;"><h2>Secure Gateway: Premium verification failed. Redirecting...</h2></div>';
+      document.body.style.display = 'block';
+      window.location.replace('index.html?unlock=' + selectedTemplate);
+      throw new Error('Access Denied: ' + err.message);
+    }
+  }
+})();
 
 // ── THEME TOGGLE ────────────────────────────────────────────────
 const themeBtn = document.getElementById('theme-btn');

@@ -20,6 +20,7 @@ const TEMPLATES = [
     tags: ['ATS-Friendly', 'Corporate', 'Clean'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'modern',
@@ -74,6 +75,7 @@ const TEMPLATES = [
     tags: ['Vibrant', 'Confident', 'Standout'],
     badge: null,
     featured: false,
+    premium: false,
   },
   // ── ADDITIONAL 50 TEMPLATES ──
   {
@@ -84,6 +86,7 @@ const TEMPLATES = [
     tags: ['Healthcare', 'Blue', 'Calm'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'sunset',
@@ -93,6 +96,7 @@ const TEMPLATES = [
     tags: ['Warm', 'Gradient', 'Friendly'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'nordic',
@@ -102,6 +106,7 @@ const TEMPLATES = [
     tags: ['Scandinavian', 'Cool', 'Clean'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'emerald',
@@ -111,6 +116,7 @@ const TEMPLATES = [
     tags: ['Finance', 'Green', 'Confident'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'midnight',
@@ -129,6 +135,7 @@ const TEMPLATES = [
     tags: ['Pink', 'Warm', 'Soft'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'slate',
@@ -138,6 +145,7 @@ const TEMPLATES = [
     tags: ['Neutral', 'Gray', 'Universal'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'lavender',
@@ -147,6 +155,7 @@ const TEMPLATES = [
     tags: ['Purple', 'Soft', 'Elegant'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'ruby',
@@ -156,6 +165,7 @@ const TEMPLATES = [
     tags: ['Red', 'Luxe', 'Executive'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'ocean',
@@ -165,6 +175,7 @@ const TEMPLATES = [
     tags: ['Navy', 'Teal', 'Nature'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'monochrome',
@@ -174,6 +185,7 @@ const TEMPLATES = [
     tags: ['B&W', 'Bold', 'Contrast'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'amber',
@@ -183,6 +195,7 @@ const TEMPLATES = [
     tags: ['Amber', 'Warm', 'Energy'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'ivy',
@@ -192,6 +205,7 @@ const TEMPLATES = [
     tags: ['Academic', 'Ivy', 'Serif'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'pastel',
@@ -201,6 +215,7 @@ const TEMPLATES = [
     tags: ['Pastel', 'Playful', 'Soft'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'graphite',
@@ -210,6 +225,7 @@ const TEMPLATES = [
     tags: ['Graphite', 'Dark', 'Sharp'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'sakura',
@@ -219,6 +235,7 @@ const TEMPLATES = [
     tags: ['Japanese', 'Pink', 'Delicate'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'bronze',
@@ -228,6 +245,7 @@ const TEMPLATES = [
     tags: ['Bronze', 'Vintage', 'Warm'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'neon',
@@ -237,6 +255,7 @@ const TEMPLATES = [
     tags: ['Neon', 'Cyberpunk', 'Electric'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'swiss',
@@ -246,6 +265,7 @@ const TEMPLATES = [
     tags: ['Grid', 'Swiss', 'Geometric'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'royal',
@@ -255,6 +275,7 @@ const TEMPLATES = [
     tags: ['Indigo', 'Gold', 'Regal'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'sage',
@@ -264,6 +285,7 @@ const TEMPLATES = [
     tags: ['Sage', 'Earthy', 'Organic'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'metro',
@@ -273,6 +295,7 @@ const TEMPLATES = [
     tags: ['Metro', 'Timeline', 'Colorful'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'ivory',
@@ -282,6 +305,7 @@ const TEMPLATES = [
     tags: ['Ivory', 'Academic', 'Scholarly'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'pixel',
@@ -291,6 +315,7 @@ const TEMPLATES = [
     tags: ['Pixel', 'Games', '8-bit'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'charcoal',
@@ -300,6 +325,7 @@ const TEMPLATES = [
     tags: ['Charcoal', 'Artistic', 'Sketch'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'citrus',
@@ -309,6 +335,7 @@ const TEMPLATES = [
     tags: ['Lime', 'Fresh', 'Energetic'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'blueprint',
@@ -318,6 +345,7 @@ const TEMPLATES = [
     tags: ['Engineering', 'Blueprint', 'Technical'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'rose',
@@ -327,6 +355,7 @@ const TEMPLATES = [
     tags: ['Rose Gold', 'Chic', 'Luxe'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'timber',
@@ -336,6 +365,7 @@ const TEMPLATES = [
     tags: ['Wood', 'Industrial', 'Warm'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'aurora',
@@ -354,6 +384,7 @@ const TEMPLATES = [
     tags: ['Urban', 'Gray', 'Metro'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'vineyard',
@@ -363,6 +394,7 @@ const TEMPLATES = [
     tags: ['Wine', 'Burgundy', 'Elegant'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'prism',
@@ -372,6 +404,7 @@ const TEMPLATES = [
     tags: ['Rainbow', 'Spectrum', 'Diverse'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'snowfall',
@@ -381,6 +414,7 @@ const TEMPLATES = [
     tags: ['White', 'Clean', 'Thin'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'mahogany',
@@ -390,6 +424,7 @@ const TEMPLATES = [
     tags: ['Brown', 'Classic', 'Trust'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'electric',
@@ -399,6 +434,7 @@ const TEMPLATES = [
     tags: ['Electric', 'Navy', 'Bold'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'bamboo',
@@ -408,6 +444,7 @@ const TEMPLATES = [
     tags: ['Zen', 'Green', 'Natural'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'steel',
@@ -417,6 +454,7 @@ const TEMPLATES = [
     tags: ['Steel', 'Chrome', 'Strong'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'peach',
@@ -426,6 +464,7 @@ const TEMPLATES = [
     tags: ['Peach', 'Soft', 'Friendly'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'horizon',
@@ -435,6 +474,7 @@ const TEMPLATES = [
     tags: ['Horizon', 'Lines', 'Balance'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'garnet',
@@ -444,6 +484,7 @@ const TEMPLATES = [
     tags: ['Garnet', 'Gold', 'Power'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'mosaic',
@@ -453,6 +494,7 @@ const TEMPLATES = [
     tags: ['Mosaic', 'Geometric', 'Art'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'glacier',
@@ -462,6 +504,7 @@ const TEMPLATES = [
     tags: ['Ice', 'Blue', 'Frost'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'terracotta',
@@ -471,6 +514,7 @@ const TEMPLATES = [
     tags: ['Earth', 'Clay', 'Organic'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'papercut',
@@ -480,6 +524,7 @@ const TEMPLATES = [
     tags: ['Paper', 'Layers', 'Craft'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'granite',
@@ -489,6 +534,7 @@ const TEMPLATES = [
     tags: ['Granite', 'Solid', 'Dark'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'mint',
@@ -498,6 +544,7 @@ const TEMPLATES = [
     tags: ['Mint', 'Fresh', 'Light'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'crimson',
@@ -507,6 +554,7 @@ const TEMPLATES = [
     tags: ['Crimson', 'Bold', 'Power'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'sand',
@@ -516,6 +564,7 @@ const TEMPLATES = [
     tags: ['Sand', 'Desert', 'Warm'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'carbon',
@@ -525,6 +574,7 @@ const TEMPLATES = [
     tags: ['Carbon', 'Red', 'Edge'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'lilac',
@@ -534,6 +584,7 @@ const TEMPLATES = [
     tags: ['Lilac', 'Pastel', 'Dreamy'],
     badge: null,
     featured: false,
+    premium: false,
   },
   {
     id: 'dusk',
@@ -543,6 +594,7 @@ const TEMPLATES = [
     tags: ['Dusk', 'Gradient', 'Dynamic'],
     badge: null,
     featured: false,
+    premium: false,
   },
 ];
 
@@ -756,6 +808,7 @@ function renderMiniResume(templateId) {
 // ================================================================
 const gridEl = document.getElementById('templates-grid');
 const noResultsEl = document.getElementById('no-results');
+const urlParams = new URLSearchParams(window.location.search);
 const isHomePage = !window.location.pathname.includes('templates.html');
 
 function renderCards(filter = 'all', search = '') {
@@ -796,27 +849,48 @@ function renderCards(filter = 'all', search = '') {
       ? `<span class="tpl-card-badge ${t.badge}">${t.badge === 'popular' ? '★ Popular' : '✦ New'}</span>`
       : '';
     const tagsHTML = t.tags.map(tag => `<span class="tpl-tag">${tag}</span>`).join('');
+    const isPremium = t.premium !== false; // Default to premium for items not explicitly marked free
+    const user = Auth.getUser();
+    const hasPaid = user && user.hasPaid;
+    const isLocked = isPremium && !hasPaid;
+
+    const lockHTML = isLocked
+      ? `<div class="tpl-lock-overlay" style="position:absolute; top:12px; right:12px; z-index:10; background:rgba(11, 44, 48, 0.85); color:white; padding:6px 10px; border-radius:30px; display:flex; align-items:center; gap:6px; font-size:11px; font-weight:700; backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,0.1);">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          $3 Premium
+        </div>`
+      : '';
+
+    const safeId = String(t.id).replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    const btnHTML = isLocked
+      ? `<button class="tpl-overlay-btn use" onclick="openPaymentModal('${safeId}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Unlock All ($3)
+        </button>`
+      : `<a href="builder.html?template=${t.id}" class="tpl-overlay-btn use">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6" /></svg>
+          Use This Template
+        </a>`;
 
     return `
-      <div class="tpl-card" data-id="${t.id}">
+      <div class="tpl-card" data-id="${t.id}" data-premium="${isPremium}">
         <div class="tpl-preview-wrap" id="preview-${t.id}">
+          ${lockHTML}
           ${renderMiniResume(t.id)}
           <div class="tpl-card-overlay">
-            <button class="tpl-overlay-btn preview" onclick="openPreview('${t.id}'); event.stopPropagation();">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              Preview
+            <button class="tpl-overlay-btn preview" onclick="openPreview('${safeId}')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              Quick Preview
             </button>
-            <a class="tpl-overlay-btn use" href="builder.html?template=${t.id}" onclick="event.stopPropagation();">
-              Use Template
-            </a>
+            ${btnHTML}
           </div>
         </div>
         <div class="tpl-card-info">
           <div class="tpl-card-top">
-            <div class="tpl-card-name">${t.name}</div>
+            <h3 class="tpl-card-name">${t.name}</h3>
             ${badgeHTML}
           </div>
-          <div class="tpl-card-desc">${t.description}</div>
+          <p class="tpl-card-desc">${t.description}</p>
           <div class="tpl-card-tags">${tagsHTML}</div>
         </div>
       </div>
@@ -907,7 +981,32 @@ function openPreview(templateId) {
 
   modalName.textContent = tpl.name;
   modalDesc.textContent = tpl.description;
-  modalUseBtn.href = `builder.html?template=${tpl.id}`;
+
+  const isPremium = tpl.premium !== false;
+  const user = Auth.getUser();
+  const hasPaid = user && user.hasPaid;
+  const isLocked = isPremium && !hasPaid;
+
+  if (isLocked) {
+    modalUseBtn.innerHTML = `
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Unlock All ($3)
+    `;
+    modalUseBtn.removeAttribute('href');
+    modalUseBtn.onclick = (e) => {
+      e.preventDefault();
+      closePreview();
+      openPaymentModal(tpl.id);
+    };
+  } else {
+    modalUseBtn.innerHTML = `
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6" /></svg>
+      Use This Template
+    `;
+    modalUseBtn.href = `builder.html?template=${tpl.id}`;
+    modalUseBtn.onclick = null;
+  }
+
   modalBody.innerHTML = renderMiniResume(tpl.id);
 
   // Scale for modal (larger)
@@ -957,6 +1056,13 @@ document.addEventListener('click', e => {
 //  INIT
 // ================================================================
 renderCards();
+
+// Check for unlock request
+if (urlParams.get('unlock')) {
+  setTimeout(() => {
+    openPaymentModal(urlParams.get('unlock'));
+  }, 500);
+}
 
 // Rescale on resize
 let resizeTimer;

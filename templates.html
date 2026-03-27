@@ -13,6 +13,8 @@
     rel="stylesheet" />
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
+  <script src="auth_client.js"></script>
+  <script src="payment_client.js"></script>
   
 </head>
 
@@ -194,6 +196,15 @@
   </div>
 
   <script src="script.js"></script>
+  <script>
+     window.closePreview = () => {
+      const modal = document.getElementById('preview-modal');
+      if (modal) {
+        modal.classList.remove('open');
+      }
+      document.body.style.overflow = '';
+    }
+  </script>
 </body>
 
 </html>

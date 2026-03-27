@@ -1,13 +1,24 @@
 {
   "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.3",
     "@vercel/analytics": "^2.0.1",
-    "@vercel/speed-insights": "^2.0.0"
+    "@vercel/speed-insights": "^2.0.0",
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.3.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.3.3"
   },
   "name": "resumeforge",
   "version": "1.0.0",
   "description": "A complete, free-to-use resume platform where users can browse premium templates, preview them in full detail, and build professional resumes — all in the browser with zero sign-up.",
   "main": "builder.js",
   "scripts": {
+    "start": "node backend/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

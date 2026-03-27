@@ -163,6 +163,7 @@ img {
     overflow: hidden;
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
     cursor: pointer;
+    border: 1px solid transparent;
 }
 
 .mp-nav-search-wrap:hover,
