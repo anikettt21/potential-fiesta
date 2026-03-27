@@ -29,7 +29,8 @@ const selectedTemplate = urlParams.get('template') || localStorage.getItem('rf_t
       const token = localStorage.getItem('token');
       if (!token) throw new Error('Unauthenticated');
 
-      const res = await fetch('/api/auth/me', {
+      const api_root = window.API_BASE || '';
+      const res = await fetch(api_root + '/api/auth/me', {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       

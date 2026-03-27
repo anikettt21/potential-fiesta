@@ -3,6 +3,11 @@
  * Handles client-side authentication states and UI updates
  */
 
+// If running on Vercel, use Railway absolute URL. Otherwise use relative for local.
+window.API_BASE = window.location.hostname.includes('vercel.app') 
+  ? 'https://resumeforge-production-278c.up.railway.app' 
+  : '';
+
 const Auth = {
   getToken() {
     return localStorage.getItem('token');
@@ -35,8 +40,8 @@ const Auth = {
 
     if (this.isLoggedIn()) {
       try {
-        // Validate truth from server to prevent localStorage spoofing
-        const res = await fetch('/api/auth/me', {
+        // Validate truth from server using absolute API_BASE
+        const res = await fetch(window.API_BASE + '/api/auth/me', {
           headers: { 'Authorization': 'Bearer ' + this.getToken() }
         });
         if (res.ok) {

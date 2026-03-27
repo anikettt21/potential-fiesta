@@ -6,8 +6,11 @@
 const Payment = {
   async initPayPalButton() {
     try {
+      // Use absolute API_BASE for cross-origin if on Vercel
+      const api_root = window.API_BASE || '';
+
       // 1. Fetch Client ID from secure backend endpoint
-      const configRes = await fetch('/api/payment/config');
+      const configRes = await fetch(api_root + '/api/payment/config');
       if (!configRes.ok) throw new Error('Could not fetch PayPal config');
       const { clientId } = await configRes.json();
 
@@ -31,7 +34,7 @@ const Payment = {
         paypal.Buttons({
           createOrder: async (data, actions) => {
             try {
-              const response = await fetch('/api/payment/create-order', {
+              const response = await fetch(api_root + '/api/payment/create-order', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
@@ -54,7 +57,7 @@ const Payment = {
 
           onApprove: async (data, actions) => {
             try {
-              const response = await fetch('/api/payment/capture-order', {
+              const response = await fetch(api_root + '/api/payment/capture-order', {
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
