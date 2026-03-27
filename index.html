@@ -307,7 +307,9 @@
   <script src="script.js"></script>
   <script type="module">
     import { inject } from 'https://unpkg.com/@vercel/analytics/dist/index.mjs';
+    import { injectSpeedInsights } from 'https://unpkg.com/@vercel/speed-insights/dist/index.mjs';
     inject();
+    injectSpeedInsights();
   </script>
 
 </body>
