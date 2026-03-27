@@ -94,18 +94,20 @@ const Auth = {
           const safeInitial = safeUsername[0].toUpperCase();
 
           navActions.insertAdjacentHTML('beforeend', `
-            <div class="user-profile" style="display:flex; align-items:center; gap:10px;">
-              <div style="text-align:right">
-                <div style="font-size:13px; font-weight:700; color:var(--text); line-height:1.2;">${safeFirst} ${premiumBadge}</div>
-                <div style="font-size:11px; color:var(--text-m);">${user.hasPaid ? 'Full Access' : 'Free Plan'}</div>
+            <div class="user-profile profile-actions">
+              <div class="user-profile-info">
+                <div class="user-name">${safeFirst} ${premiumBadge}</div>
+                <div class="user-plan">${user.hasPaid ? 'Full Access' : 'Free Plan'}</div>
               </div>
-              <div style="width:36px; height:36px; border-radius:50%; background:var(--accent-soft); border:1px solid var(--border); display:flex; align-items:center; justify-content:center; color:var(--text); font-weight:800; font-size:14px;">
-                ${safeInitial}
-              </div>
+              <div class="user-avatar">${safeInitial}</div>
+              <button onclick="Auth.logout()" class="user-logout-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                  <polyline points="16 17 21 12 16 7"></polyline>
+                  <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+              </button>
             </div>
-            <button onclick="Auth.logout()" style="background:none; border:none; color:var(--text-m); font-size:12px; font-weight:600; cursor:pointer; padding:8px; border-radius:8px; transition:0.2s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-m)'">
-              Sign Out
-            </button>
           `);
         }
       }
