@@ -16,7 +16,20 @@ const PORT = process.env.PORT || 3000;
 
 // Security and Middleware
 app.use(helmet({ contentSecurityPolicy: false }));
-app.use(cors({ origin: process.env.frontend_URL || 'http://localhost:3000' }));
+app.use(cors({ 
+  origin: (origin, callback) => {
+    const allowed = process.env.frontend_URL || 'http://localhost:3000';
+    // Remove trailing slashes for comparison
+    const normalizedAllowed = allowed.replace(/\/$/, '');
+    const normalizedOrigin = origin ? origin.replace(/\/$/, '') : '';
+    
+    if (!origin || normalizedOrigin === normalizedAllowed) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
 app.use(bodyParser.json());
 
 // API Rate Limiting against Bruteforce

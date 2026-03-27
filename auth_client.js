@@ -5,7 +5,7 @@
 
 // If running on Vercel, use Railway absolute URL. Otherwise use relative for local.
 window.API_BASE = window.location.hostname.includes('vercel.app') 
-  ? 'https://resumeforge-production-278c.up.railway.app' 
+  ? 'https://resumeforge-production-1b1f.up.railway.app' 
   : '';
 
 const Auth = {
