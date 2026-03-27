@@ -5310,3 +5310,112 @@ img {
 .contact-submit-btn:hover {
     background: #1f2937;
 }
+
+/* Navbar Profile Actions */
+.user-profile.profile-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.user-profile-info {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.user-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    white-space: nowrap;
+}
+.user-plan {
+    font-size: 11px;
+    color: var(--text-m);
+    white-space: nowrap;
+}
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-soft);
+    color: var(--text);
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    font-size: 14px;
+}
+.user-logout-btn {
+    background: none;
+    border: none;
+    color: var(--text-m);
+    cursor: pointer;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+.user-logout-btn:hover {
+    color: var(--danger, #ef4444);
+}
+
+/* Globally Hide Old SVGs in CTA and Inject Smart Icon */
+.mp-header-cta svg {
+    display: none !important;
+}
+
+.mp-header-cta::before {
+    content: '';
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-color: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cline x1='12' y1='12' x2='12' y2='18'/%3E%3Cline x1='9' y1='15' x2='15' y2='15'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3C/svg%3E") no-repeat center / contain;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/%3E%3Cline x1='12' y1='12' x2='12' y2='18'/%3E%3Cline x1='9' y1='15' x2='15' y2='15'/%3E%3Cpolyline points='14 2 14 8 20 8'/%3E%3C/svg%3E") no-repeat center / contain;
+}
+
+/* Mobile Navbar Overrides */
+@media (max-width: 768px) {
+    .user-profile.profile-actions {
+        gap: 6px;
+    }
+    .user-profile-info {
+        display: none !important; /* Hide plan/name text */
+    }
+    .user-logout-btn {
+        padding: 4px; /* Tighter logout icon */
+    }
+    .mp-header-cta {
+        padding: 0;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        color: transparent; /* Safari/Mobile safe text hide */
+        overflow: hidden;
+        position: relative;
+        flex-shrink: 0;
+    }
+    .mp-header-cta::before {
+        background-color: #fff;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 18px;
+        height: 18px;
+        transform: translate(-50%, -50%);
+        margin: 0;
+    }
+    .mp-brand-name {
+        display: none; /* Shrink FolioTub logo to just the icon on mobiles */
+    }
+    .mp-header-inner {
+        padding: 0 12px; /* Save margin space */
+    }
+    .mp-nav-search-wrap:hover, .mp-nav-search-wrap:focus-within {
+        width: 140px; /* Smaller expand on mobile */
+    }
+}
