@@ -1,0 +1,10 @@
+[dotenv@17.3.1] injecting env (7) from .env -- tip: 🔐 prevent committing .env to code: https://dotenvx.com/precommit
+🚀 Server started on port 3000
+📡 API Endpoints available at http://localhost:3000/api
+✅ MongoDB connected successfully
+Signup error: TypeError: next is not a function
+    at model.<anonymous> (/home/aniket/Documents/ResumeForge/backend/models/User.js:45:5)
+    at async Kareem.execPre (/home/aniket/Documents/ResumeForge/node_modules/kareem/index.js:70:24)
+    at async model.$__save (/home/aniket/Documents/ResumeForge/node_modules/mongoose/lib/model.js:394:5)
+    at async model.save (/home/aniket/Documents/ResumeForge/node_modules/mongoose/lib/model.js:664:5)
+    at async /home/aniket/Documents/ResumeForge/backend/routes/auth.js:38:5
