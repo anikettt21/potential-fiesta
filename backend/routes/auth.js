@@ -56,7 +56,19 @@ router.post('/signup', async (req, res) => {
     });
   } catch (error) {
     console.error('Signup error:', error);
-    res.status(500).json({ message: 'Internal server error.' });
+    
+    // Check for Mongoose Duplicate Key Error (Error Code 11000)
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'Email address is already in use.' });
+    }
+    
+    // Check for Mongoose Validation Errors
+    if (error.name === 'ValidationError') {
+      const msg = Object.values(error.errors).map(val => val.message).join(', ');
+      return res.status(400).json({ message: msg });
+    }
+
+    res.status(500).json({ message: 'Internal server error. Please try again later.' });
   }
 });
 
