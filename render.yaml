@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: resumeforge-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node backend/server.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false          # Set manually in Render dashboard
+      - key: JWT_SECRET
+        sync: false          # Set manually in Render dashboard
+      - key: PAYPAL_CLIENT_ID
+        sync: false          # Set manually in Render dashboard
+      - key: PAYPAL_CLIENT_SECRET
+        sync: false          # Set manually in Render dashboard
+      - key: PAYPAL_MODE
+        value: live          # Change to 'sandbox' for testing
+      - key: frontend_URL
+        sync: false          # Set manually in Render dashboard (your Vercel URL)

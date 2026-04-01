@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
+const https = require('https');
 require('dotenv').config();
 
 const authRoutes = require('./routes/auth');
@@ -68,6 +69,11 @@ mongoose.connect(process.env.MONGODB_URI)
     process.exit(1);
   });
 
+// Health check endpoint — used by Render to verify service is alive
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', uptime: process.uptime() });
+});
+
 // Routes
 app.get('/api', (req, res) => {
   res.json({
@@ -89,4 +95,20 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server started on port ${PORT}`);
   console.log(`📡 API Endpoints available at http://localhost:${PORT}/api`);
+
+  // ── Keep-Alive Self-Ping (Render free tier sleeps after 15 min) ──
+  // Pings /health every 14 minutes to keep the service awake.
+  // Replace RENDER_URL with your actual Render service URL after deploying.
+  const RENDER_URL = process.env.RENDER_EXTERNAL_URL;
+  if (RENDER_URL) {
+    setInterval(() => {
+      const url = `${RENDER_URL}/health`;
+      https.get(url, (res) => {
+        console.log(`♻️  Keep-alive ping → ${url} [${res.statusCode}]`);
+      }).on('error', (err) => {
+        console.warn(`⚠️  Keep-alive ping failed: ${err.message}`);
+      });
+    }, 14 * 60 * 1000); // every 14 minutes
+    console.log(`♻️  Keep-alive enabled → pinging ${RENDER_URL}/health every 14 min`);
+  }
 });
