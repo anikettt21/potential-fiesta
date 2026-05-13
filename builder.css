@@ -6530,6 +6530,7 @@ body {
     display: block !important;
     width: 100% !important;
     max-width: 100% !important;
+    height: auto !important;
     margin: 0 !important;
     padding: 0 !important;
     position: static !important;
@@ -6594,8 +6595,8 @@ body {
 
   .rv-entry {
     display: block !important;
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
+    page-break-inside: auto !important;
+    break-inside: auto !important;
     margin-bottom: 5mm !important;
     width: 100% !important;
   }
