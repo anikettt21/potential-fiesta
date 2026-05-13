@@ -1045,6 +1045,53 @@ updateMobileScale();
 window.addEventListener('resize', updateMobileScale);
 
 // ================================================================
+//  PRINT PREP — Remove transforms & reset layout before printing
+//  Chrome/Edge print preview hangs if any element has a CSS
+//  `transform` set via inline style (the mobile scale hack).
+// ================================================================
+function beforePrint() {
+  const paper = document.getElementById('resume-preview');
+  const formCol = document.getElementById('form-column');
+  const prevCol = document.getElementById('preview-column');
+
+  // 1. Remove inline transform so @media print can take over cleanly
+  if (paper) {
+    paper.style.removeProperty('--mobile-scale');
+    paper.style.removeProperty('transform');
+    paper.style.removeProperty('transform-origin');
+    paper.style.removeProperty('margin-bottom');
+    paper.style.removeProperty('margin-right');
+  }
+
+  // 2. Force preview column to be visible (mobile tab may have hidden it)
+  if (prevCol) {
+    prevCol.classList.add('tab-visible');
+    prevCol.classList.remove('tab-hidden');
+  }
+  if (formCol) {
+    formCol.classList.add('tab-hidden');
+  }
+
+  // 3. Force light theme on html for clean white PDF
+  document.documentElement.setAttribute('data-theme', 'light');
+}
+
+function afterPrint() {
+  // Restore theme
+  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+  // Restore tab state
+  const formCol = document.getElementById('form-column');
+  const prevCol = document.getElementById('preview-column');
+  if (formCol) formCol.classList.remove('tab-hidden');
+  if (prevCol) prevCol.classList.remove('tab-visible');
+  // Restore mobile scale transform
+  updateMobileScale();
+}
+
+window.addEventListener('beforeprint', beforePrint);
+window.addEventListener('afterprint', afterPrint);
+
+// ================================================================
 //  MOBILE TAB SWITCHER
 // ================================================================
 function switchTab(tab) {
