@@ -53,7 +53,7 @@
             <line x1="21" y1="12" x2="23" y2="12" />
           </svg>
         </button>
-        <button class="header-export-btn" onclick="if(window.vaTrack) window.vaTrack('Download PDF'); beforePrint(); setTimeout(function(){window.print();}, 100)">
+        <button class="header-export-btn" onclick="startDownload()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="6 9 6 2 18 2 18 9" />
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
@@ -507,7 +507,7 @@
           </svg>
           Save Progress
         </button>
-        <button class="btn-gen-pdf" onclick="if(window.vaTrack) window.vaTrack('Download PDF'); beforePrint(); setTimeout(function(){window.print();}, 100)">
+        <button class="btn-gen-pdf" onclick="startDownload()">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <polyline points="6 9 6 2 18 2 18 9" />
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
@@ -696,6 +696,27 @@
     </div><!-- /photo-editor -->
   </div><!-- /photo-overlay -->
 
+  <!-- DOWNLOAD OVERLAY MODAL -->
+  <div class="download-overlay" id="download-modal">
+    <div class="download-card">
+      <div class="dl-animation">
+        <!-- SVG Pulse Animation -->
+        <div class="dl-ring dl-ring-1"></div>
+        <div class="dl-ring dl-ring-2"></div>
+        <div class="dl-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9" />
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+            <rect x="6" y="14" width="12" height="8" />
+          </svg>
+        </div>
+      </div>
+      <h3 class="dl-title">Generating PDF...</h3>
+      <p class="dl-desc">Please wait while we perfectly format your resume.</p>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script src="builder.js"></script>
   <script type="module">
     import { inject, track } from 'https://unpkg.com/@vercel/analytics/dist/index.mjs';

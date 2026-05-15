@@ -1107,3 +1107,47 @@ function switchTab(tab) {
     tabPrev.classList.add('active'); tabForm.classList.remove('active');
   }
 }
+
+// ================================================================
+//  PDF DOWNLOAD (html2pdf)
+// ================================================================
+function startDownload() {
+  if (window.vaTrack) window.vaTrack('Download PDF - html2pdf');
+  
+  const modal = document.getElementById('download-modal');
+  modal.classList.add('active');
+  
+  // Prepare layout (remove mobile scale, force light theme, etc.)
+  beforePrint();
+  
+  const element = document.getElementById('resume-preview');
+  
+  // Sanitize name for filename
+  let userName = (document.getElementById('rv-name').textContent || 'Resume').trim();
+  if (userName === 'YOUR NAME') userName = 'FolioTub';
+  const filename = `${userName.replace(/[^a-zA-Z0-9]/g, '_')}_Resume.pdf`;
+  
+  const opt = {
+    margin:       0,
+    filename:     filename,
+    image:        { type: 'jpeg', quality: 1.0 },
+    html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+  };
+  
+  // Delay to allow modal animation and CSS layout changes to take effect
+  setTimeout(() => {
+    html2pdf().set(opt).from(element).save().then(() => {
+      setTimeout(() => {
+        modal.classList.remove('active');
+        afterPrint();
+        showToast('PDF Downloaded successfully!');
+      }, 600); // slight delay after download prompt for smooth UI transition
+    }).catch(err => {
+      console.error('PDF Generation Error:', err);
+      modal.classList.remove('active');
+      afterPrint();
+      showToast('Error generating PDF');
+    });
+  }, 400);
+}

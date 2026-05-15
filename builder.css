@@ -6641,3 +6641,103 @@ body {
   .rv-photo[data-placeholder="true"] { display: none !important; }
   .rv-contact-item, .rv-entry-url { color: #374151 !important; text-decoration: none !important; }
 }
+
+/* ================================================================
+   DOWNLOAD OVERLAY MODAL
+   ================================================================ */
+.download-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.download-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.download-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 40px 30px;
+  width: 90%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: var(--shadow-paper);
+  transform: translateY(20px) scale(0.95);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.download-overlay.active .download-card {
+  transform: translateY(0) scale(1);
+}
+
+.dl-animation {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dl-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--primary);
+  opacity: 0;
+}
+
+.download-overlay.active .dl-ring-1 {
+  animation: dl-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.download-overlay.active .dl-ring-2 {
+  animation: dl-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  animation-delay: 1s;
+}
+
+@keyframes dl-pulse {
+  0% { transform: scale(0.5); opacity: 0.8; border-width: 4px; }
+  100% { transform: scale(1.5); opacity: 0; border-width: 1px; }
+}
+
+.dl-icon {
+  position: relative;
+  z-index: 2;
+  width: 56px;
+  height: 56px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(15, 63, 68, 0.2);
+}
+
+.dl-title {
+  font-family: var(--dfont);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.dl-desc {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
