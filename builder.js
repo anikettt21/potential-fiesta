@@ -1128,11 +1128,12 @@ function startDownload() {
   const filename = `${userName.replace(/[^a-zA-Z0-9]/g, '_')}_Resume.pdf`;
   
   const opt = {
-    margin:       0,
+    margin:       [0.15, 0, 0.15, 0],
     filename:     filename,
     image:        { type: 'jpeg', quality: 1.0 },
     html2canvas:  { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+    pagebreak:    { mode: 'css', avoid: ['.rv-entry', '.rv-skills-row', '.rv-section-header', '.rv-extras-item'] }
   };
   
   // Delay to allow modal animation and CSS layout changes to take effect
