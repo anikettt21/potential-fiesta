@@ -752,6 +752,58 @@ document.getElementById('add-certification').addEventListener('click', () => {
   certData.push({}); renderCertList(); renderPreview(); save();
 });
 
+// ── AWARDS & ACHIEVEMENTS ───────────────────────────────────────
+let awardData = [];
+function renderAwardList() {
+  const list = document.getElementById('awards-list');
+  list.innerHTML = '';
+  awardData.forEach((award, i) => {
+    const card = document.createElement('div');
+    card.className = 'entry-card'; card.style.padding = '14px 16px';
+    card.innerHTML = `
+      <div class="entry-card-header" style="margin-bottom:10px">
+        <div class="entry-card-label">Entry ${i + 1}</div>
+        <button type="button" class="entry-remove" data-i="${i}" title="Remove">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="field-group" style="margin-bottom:10px">
+        <select class="field-input" data-field="awardType" data-i="${i}">
+          <option value="Award" ${award.awardType === 'Award' ? 'selected' : ''}>Award</option>
+          <option value="Achievement" ${award.awardType === 'Achievement' ? 'selected' : ''}>Achievement</option>
+        </select>
+      </div>
+      <div class="form-grid-2" style="margin-bottom:10px">
+        <div class="field-group" style="margin-bottom:0">
+          <input class="field-input" type="text" data-field="awardName" data-i="${i}" value="${esc(award.awardName || '')}" placeholder="Title (e.g. 1st Place Hackathon)" />
+        </div>
+        <div class="field-group" style="margin-bottom:0">
+          <input class="field-input" type="text" data-field="awardYear" data-i="${i}" value="${esc(award.awardYear || '')}" placeholder="Year / Detail (e.g. 2024)" />
+        </div>
+      </div>
+    `;
+    card.querySelector('.entry-remove').addEventListener('click', function () {
+      const idx = +this.dataset.i;
+      awardData.splice(idx, 1); renderAwardList(); renderPreview(); save();
+    });
+    card.querySelectorAll('[data-field]').forEach(el => {
+      el.addEventListener('change', () => {
+        awardData[+el.dataset.i][el.dataset.field] = el.value;
+        renderPreview(); save();
+      });
+      el.addEventListener('input', () => {
+        awardData[+el.dataset.i][el.dataset.field] = el.value;
+        renderPreview(); save();
+      });
+    });
+    list.appendChild(card);
+  });
+}
+document.getElementById('add-award').addEventListener('click', () => {
+  awardData.push({ awardType: 'Award' }); renderAwardList(); renderPreview(); save();
+});
+renderAwardList();
+
 // ================================================================
 //  SIMPLE INPUT LIVE BINDING
 // ================================================================
@@ -759,7 +811,7 @@ const simpleInputIds = [
   'f-name', 'f-title', 'f-email', 'f-phone', 'f-location',
   'f-linkedin', 'f-github', 'f-website', 'f-summary',
   'f-tech-skills', 'f-tools', 'f-soft-skills', 'f-languages',
-  'f-awards', 'f-volunteer'
+  'f-volunteer', 'f-additional'
 ];
 simpleInputIds.forEach(id => {
   const el = document.getElementById(id);
@@ -956,13 +1008,19 @@ function renderPreview() {
   // ── Extras ──
   const extrasSection = document.getElementById('rv-extras-section');
   const extrasBlock = document.getElementById('rv-extras-block');
-  const awards = val('f-awards');
   const volunteer = val('f-volunteer');
+  const additional = val('f-additional');
   const certItems = certData.filter(c => c.certName);
+  const awardItems = awardData.filter(a => a.awardName);
   let extrasHTML = '';
   if (certItems.length) extrasHTML += `<div class="rv-extras-item"><strong>Certifications:</strong> ${certItems.map(c => `${esc(c.certName)}${c.certIssuer ? ` (${esc(c.certIssuer)})` : ''}${c.certYear ? ` — ${esc(c.certYear)}` : ''}`).join(' · ')}</div>`;
-  if (awards) extrasHTML += `<div class="rv-extras-item"><strong>Awards:</strong> ${esc(awards).replace(/\n/g, '<br>')}</div>`;
+  if (awardItems.length) {
+    awardItems.forEach(a => {
+      extrasHTML += `<div class="rv-extras-item"><strong>${esc(a.awardType || 'Award')}:</strong> ${esc(a.awardName)}${a.awardYear ? ` — ${esc(a.awardYear)}` : ''}</div>`;
+    });
+  }
   if (volunteer) extrasHTML += `<div class="rv-extras-item"><strong>Volunteer:</strong> ${esc(volunteer).replace(/\n/g, '<br>')}</div>`;
+  if (additional) extrasHTML += `<div class="rv-extras-item"><strong>Additional:</strong> ${esc(additional).replace(/\n/g, '<br>')}</div>`;
   extrasBlock.innerHTML = extrasHTML;
   extrasSection.style.display = extrasHTML ? '' : 'none';
 }
@@ -975,7 +1033,7 @@ function save() {
     step: currentStep,
     photo: photoDataUrl,
     inputs: {},
-    exp: expData, proj: projData, edu: eduData, certs: certData,
+    exp: expData, proj: projData, edu: eduData, certs: certData, awards: awardData,
   };
   simpleInputIds.forEach(id => {
     data.inputs[id] = val(id);
@@ -1013,6 +1071,7 @@ function restore() {
     if (data.proj && data.proj.length) { projData = data.proj; renderProjectList(); }
     if (data.edu && data.edu.length) { eduData = data.edu; renderEducationList(); }
     if (data.certs && data.certs.length) { certData = data.certs; renderCertList(); }
+    if (data.awards && data.awards.length) { awardData = data.awards; renderAwardList(); }
     // Step (BUG FIX: use internal _goToStep that skips save() to avoid restore→save loop)
     if (data.step >= 1 && data.step <= STEPS.length) _goToStep(data.step);
     // Tag previews sync
